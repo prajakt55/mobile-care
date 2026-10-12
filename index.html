@@ -7,6 +7,11 @@
     <meta name="description" content="Mobile Care by Muzzafar in Gadhinglaj. Premium mobile repairs, screen replacements, motherboard diagnostics, and accessories. Fast service & guaranteed satisfaction.">
     <meta name="referrer" content="no-referrer-when-downgrade">
     
+    <!-- Google Fonts: Poppins (Headings) + Inter (Body) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&display=swap" rel="stylesheet">
+
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -14,13 +19,18 @@
             darkMode: 'class',
             theme: {
                 extend: {
+                    fontFamily: {
+                        heading: ['Poppins', 'sans-serif'],
+                        body: ['Inter', 'sans-serif'],
+                    },
                     colors: {
-                        brand: {
-                            cyan: '#06b6d4',
-                            amber: '#f59e0b',
-                            dark: '#0b0f19',
-                            card: '#111827',
-                            border: '#1f2937'
+                        shopify: {
+                            blue: '#2563eb',
+                            dark: '#0f172a',
+                            light: '#f8fafc',
+                            card: '#ffffff',
+                            border: '#e2e8f0',
+                            accent: '#0d9488'
                         }
                     }
                 }
@@ -37,80 +47,85 @@
 
     <style>
         body {
-            background-color: #0b0f19;
-            color: #f3f4f6;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
             overflow-x: hidden;
         }
-        .glass-card {
-            background: rgba(17, 24, 39, 0.7);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            will-change: transform, opacity;
+        h1, h2, h3, h4, h5, h6, .font-heading {
+            font-family: 'Poppins', sans-serif;
         }
-        .glass-card-hover:hover {
-            border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 0 25px rgba(6, 182, 212, 0.2);
+        .shopify-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform, box-shadow;
+        }
+        .shopify-card:hover {
+            transform: translateY(-4px);
+            border-color: #cbd5e1;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.08), 0 8px 10px -6px rgba(0, 0, 0, 0.04);
         }
         #webgl-container canvas {
             display: block;
             width: 100% !important;
             height: 100% !important;
         }
-        /* Scroll Progress Bar */
+        /* Scroll Progress Line */
         #scroll-progress {
             position: fixed;
             top: 0;
             left: 0;
             height: 3px;
             width: 0%;
-            background: linear-gradient(to right, #06b6d4, #f59e0b);
+            background: linear-gradient(to right, #2563eb, #0d9488);
             z-index: 100;
             will-change: width;
         }
     </style>
 </head>
-<body class="bg-brand-dark text-gray-100 min-h-screen pb-20 md:pb-0">
+<body class="bg-shopify-light text-slate-800 min-h-screen pb-20 md:pb-0">
 
-    <!-- Scroll Progress Bar -->
+    <!-- Scroll Progress Line -->
     <div id="scroll-progress"></div>
 
     <!-- Top Announcement Bar -->
-    <div class="bg-gradient-to-r from-cyan-900 via-gray-900 to-amber-950 text-xs md:text-sm py-2 px-4 text-center border-b border-gray-800 flex items-center justify-center gap-2">
-        <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400 shrink-0"></i>
-        <span>MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</span>
-        <span class="hidden md:inline text-gray-500">|</span>
-        <a href="tel:+918623904143" class="hidden md:inline-flex items-center gap-1 text-cyan-400 hover:underline font-semibold">
+    <div class="bg-slate-900 text-white text-xs md:text-sm py-2.5 px-4 text-center border-b border-slate-800 flex items-center justify-center gap-2">
+        <i data-lucide="map-pin" class="w-4 h-4 text-blue-400 shrink-0"></i>
+        <span class="font-medium">MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</span>
+        <span class="hidden md:inline text-slate-600">|</span>
+        <a href="tel:+918623904143" class="hidden md:inline-flex items-center gap-1 text-blue-400 hover:underline font-semibold">
             <i data-lucide="phone" class="w-3.5 h-3.5"></i> +91 8623904143
         </a>
     </div>
 
-    <!-- Navigation -->
-    <nav class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur-md border-b border-gray-800">
+    <!-- Navigation Header -->
+    <nav class="sticky top-0 z-40 bg-white/90 backdrop-blur-md border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
             <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-amber-500 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-500/20">
-                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
-                        <i data-lucide="smartphone" class="w-5 h-5 text-cyan-400"></i>
+                <div class="w-10 h-10 rounded-xl bg-blue-600 p-0.5 flex items-center justify-center shadow-md shadow-blue-500/20">
+                    <div class="w-full h-full bg-white rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="smartphone" class="w-5 h-5 text-blue-600"></i>
                     </div>
                 </div>
                 <div>
-                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">MOBILE CARE</span>
-                    <span class="block text-[10px] text-gray-400 font-medium tracking-wider uppercase">By Muzzafar</span>
+                    <span class="text-xl font-extrabold tracking-tight text-slate-900 font-heading">MOBILE CARE</span>
+                    <span class="block text-[10px] text-slate-500 font-medium tracking-wider uppercase">By Muzzafar</span>
                 </div>
             </div>
 
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
-                <a href="#services" class="hover:text-cyan-400 transition-colors">Services</a>
-                <a href="#quote" class="hover:text-cyan-400 transition-colors">Inquiry Tool</a>
-                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
-                <a href="#location" class="hover:text-cyan-400 transition-colors">Location</a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-semibold text-slate-600">
+                <a href="#services" class="hover:text-blue-600 transition-colors">Services</a>
+                <a href="#quote" class="hover:text-blue-600 transition-colors">Estimate Tool</a>
+                <a href="#about" class="hover:text-blue-600 transition-colors">About Us</a>
+                <a href="#location" class="hover:text-blue-600 transition-colors">Location</a>
             </div>
 
             <div class="flex items-center gap-3">
                 <a href="https://wa.me/918623904143?text=Hi%20Muzzafar,%20I%20have%20an%20inquiry%20about%20mobile%20repair." 
                    target="_blank" 
-                   class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition-all hover:scale-105">
+                   class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-sm transition-all hover:shadow-md">
                     <i data-lucide="message-circle" class="w-4 h-4"></i>
                     <span>WhatsApp</span>
                 </a>
@@ -118,70 +133,70 @@
         </div>
     </nav>
 
-    <!-- Hero Section with 3D Canvas -->
-    <section class="relative overflow-hidden pt-8 pb-16 md:py-24 border-b border-gray-800">
+    <!-- Hero Section -->
+    <section class="relative overflow-hidden py-12 md:py-20 bg-white border-b border-slate-200">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
             
             <div class="z-10 space-y-6 text-center md:text-left hero-text-col">
-                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 text-xs font-semibold">
-                    <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
-                    Gadhinglaj's Trusted Mobile Repair Center
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-blue-50 border border-blue-100 text-blue-700 text-xs font-semibold">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-blue-600"></i>
+                    Gadhinglaj's Premier Mobile Service Center
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight hero-headline">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-tight font-heading hero-headline">
                     Fast, Reliable & <br class="hidden sm:inline">
-                    <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">Professional Repair</span>
+                    <span class="text-blue-600">Professional Repair</span>
                 </h1>
 
-                <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0 hero-sub">
-                    From broken displays and battery replacements to complex IC motherboard diagnostics, owner <strong class="text-gray-200">Muzzafar</strong> ensures quick turnaround with genuine parts.
+                <p class="text-slate-600 text-base sm:text-lg max-w-xl mx-auto md:mx-0 hero-sub">
+                    From broken displays and battery replacements to complex IC motherboard diagnostics, owner <strong class="text-slate-900">Muzzafar</strong> ensures quick turnaround with genuine components.
                 </p>
 
                 <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2 hero-btns">
-                    <a href="#quote" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
+                    <a href="#quote" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-6 py-3.5 rounded-xl shadow-md shadow-blue-600/20 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
                         <i data-lucide="wrench" class="w-5 h-5"></i>
-                        <span>Service Inquiry Tool</span>
+                        <span>Get Repair Estimate</span>
                     </a>
-                    <a href="tel:+918623904143" class="bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 font-semibold px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all">
-                        <i data-lucide="phone-call" class="w-5 h-5 text-amber-400"></i>
+                    <a href="tel:+918623904143" class="bg-slate-100 hover:bg-slate-200 text-slate-800 border border-slate-200 font-semibold px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all">
+                        <i data-lucide="phone-call" class="w-5 h-5 text-blue-600"></i>
                         <span>Call +91 8623904143</span>
                     </a>
                 </div>
 
                 <!-- Feature Badges -->
-                <div class="grid grid-cols-3 gap-3 pt-6 border-t border-gray-800/80 text-left hero-badges">
+                <div class="grid grid-cols-3 gap-3 pt-6 border-t border-slate-200 text-left hero-badges">
                     <div>
-                        <div class="text-amber-400 font-bold text-lg">Same-Day</div>
-                        <div class="text-xs text-gray-400">Quick Fixes</div>
+                        <div class="text-slate-900 font-bold text-lg font-heading">Same-Day</div>
+                        <div class="text-xs text-slate-500">Express Fixes</div>
                     </div>
                     <div>
-                        <div class="text-cyan-400 font-bold text-lg">100% Genuine</div>
-                        <div class="text-xs text-gray-400">Quality Parts</div>
+                        <div class="text-blue-600 font-bold text-lg font-heading">100% Genuine</div>
+                        <div class="text-xs text-slate-500">Quality Parts</div>
                     </div>
                     <div>
-                        <div class="text-emerald-400 font-bold text-lg">Expert Care</div>
-                        <div class="text-xs text-gray-400">By Muzzafar</div>
+                        <div class="text-emerald-600 font-bold text-lg font-heading">Expert Care</div>
+                        <div class="text-xs text-slate-500">By Muzzafar</div>
                     </div>
                 </div>
             </div>
 
-            <!-- 3D WebGL Canvas Container with Fallback -->
-            <div id="hero-3d-wrapper" class="relative h-[360px] sm:h-[420px] w-full rounded-2xl glass-card overflow-hidden flex items-center justify-center shadow-2xl border border-cyan-500/20">
+            <!-- 3D WebGL Canvas Container -->
+            <div id="hero-3d-wrapper" class="relative h-[360px] sm:h-[420px] w-full rounded-2xl shopify-card overflow-hidden flex items-center justify-center bg-slate-900">
                 <div id="webgl-container" class="absolute inset-0 w-full h-full"></div>
                 
                 <!-- Fallback Graphic -->
-                <div id="fallback-graphic" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-brand-dark/40 to-brand-dark p-6 text-center transition-opacity duration-500">
-                    <div class="relative w-28 h-52 rounded-3xl border-2 border-cyan-400/60 bg-gray-900/90 shadow-[0_0_30px_rgba(6,182,212,0.25)] flex flex-col items-center justify-between p-3 animate-pulse">
-                        <div class="w-10 h-1.5 bg-gray-700 rounded-full"></div>
-                        <div class="w-12 h-12 rounded-full border border-amber-400/60 flex items-center justify-center">
-                            <i data-lucide="cpu" class="w-6 h-6 text-amber-400"></i>
+                <div id="fallback-graphic" class="absolute inset-0 flex flex-col items-center justify-center bg-slate-900 p-6 text-center transition-opacity duration-500">
+                    <div class="relative w-28 h-52 rounded-3xl border-2 border-blue-400/60 bg-slate-800 shadow-[0_0_30px_rgba(37,99,235,0.25)] flex flex-col items-center justify-between p-3 animate-pulse">
+                        <div class="w-10 h-1.5 bg-slate-700 rounded-full"></div>
+                        <div class="w-12 h-12 rounded-full border border-teal-400/60 flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-6 h-6 text-teal-400"></i>
                         </div>
-                        <div class="text-[10px] text-cyan-300 font-mono tracking-wider">MOBILE CARE</div>
+                        <div class="text-[10px] text-blue-300 font-mono tracking-wider">MOBILE CARE</div>
                     </div>
                 </div>
 
                 <div class="absolute bottom-4 left-4 right-4 text-center pointer-events-none z-10">
-                    <span class="inline-block px-3 py-1 bg-gray-900/90 backdrop-blur border border-gray-700 rounded-full text-[11px] text-gray-400">
+                    <span class="inline-block px-3 py-1 bg-slate-900/80 backdrop-blur border border-slate-700 rounded-full text-[11px] text-slate-300">
                         Interactive 3D Tech Inspection (Drag to rotate)
                     </span>
                 </div>
@@ -193,59 +208,60 @@
     <!-- Services Section -->
     <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-12 services-header">
-            <h2 class="text-3xl font-bold text-white">Our Specialized Services</h2>
-            <p class="text-gray-400 mt-2">Comprehensive repair solutions for all Android smartphones and iPhones in Gadhinglaj.</p>
+            <span class="text-blue-600 text-xs font-bold tracking-wider uppercase">Quality Services</span>
+            <h2 class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">Our Specialized Repair Offerings</h2>
+            <p class="text-slate-600 mt-2">Comprehensive solutions for all Android smartphones and Apple iPhones in Gadhinglaj.</p>
         </div>
 
         <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 services-grid">
-            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-cyan-950/80 border border-cyan-800 flex items-center justify-center text-cyan-400">
+            <div class="shopify-card p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-blue-50 border border-blue-100 flex items-center justify-center text-blue-600">
                     <i data-lucide="smartphone" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-xl font-bold text-white">Display & Touch Glass</h3>
-                <p class="text-sm text-gray-400">Cracked screen? Premium AMOLED and LCD display replacements with high color accuracy and touch sensitivity.</p>
+                <h3 class="text-xl font-bold text-slate-900 font-heading">Display & Glass</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Cracked screen? Premium AMOLED and LCD display replacements with full touch sensitivity.</p>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-amber-950/80 border border-amber-800 flex items-center justify-center text-amber-400">
+            <div class="shopify-card p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-amber-50 border border-amber-100 flex items-center justify-center text-amber-600">
                     <i data-lucide="battery-charging" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-xl font-bold text-white">Battery Replacement</h3>
-                <p class="text-sm text-gray-400">Fast-draining or swollen battery? Get brand new, long-lasting high-capacity battery installations.</p>
+                <h3 class="text-xl font-bold text-slate-900 font-heading">Battery Replacement</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Fast-draining battery? Get brand new, long-lasting high-capacity battery installations.</p>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-purple-950/80 border border-purple-800 flex items-center justify-center text-purple-400">
+            <div class="shopify-card p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-purple-50 border border-purple-100 flex items-center justify-center text-purple-600">
                     <i data-lucide="cpu" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-xl font-bold text-white">Motherboard & IC Repair</h3>
-                <p class="text-sm text-gray-400">Advanced micro-soldering, charging IC repair, network chip troubleshooting, and dead phone recovery.</p>
+                <h3 class="text-xl font-bold text-slate-900 font-heading">Motherboard & IC</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Advanced micro-soldering, charging IC repair, network chip troubleshooting, and dead phone recovery.</p>
             </div>
 
-            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
-                <div class="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-center text-emerald-400">
+            <div class="shopify-card p-6 rounded-2xl space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-teal-50 border border-teal-100 flex items-center justify-center text-teal-600">
                     <i data-lucide="droplet" class="w-6 h-6"></i>
                 </div>
-                <h3 class="text-xl font-bold text-white">Water Damage Fix</h3>
-                <p class="text-sm text-gray-400">Accidental liquid spills? Deep ultrasonic cleaning and circuit board drying to prevent corrosion.</p>
+                <h3 class="text-xl font-bold text-slate-900 font-heading">Water Damage Repair</h3>
+                <p class="text-sm text-slate-600 leading-relaxed">Accidental spills? Deep ultrasonic cleaning and circuit board treatment to stop corrosion.</p>
             </div>
         </div>
     </section>
 
-    <!-- Interactive Price-Free Service Inquiry Tool -->
-    <section id="quote" class="py-16 bg-gray-900/50 border-y border-gray-800">
+    <!-- Price-Free Service Inquiry Tool -->
+    <section id="quote" class="py-16 bg-white border-y border-slate-200">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-10 quote-header">
-                <span class="text-cyan-400 text-xs font-semibold tracking-wider uppercase">Direct WhatsApp Estimate</span>
-                <h2 class="text-3xl font-bold text-white mt-1">Select Your Service Need</h2>
-                <p class="text-gray-400 text-sm mt-2">Get an instant turnaround estimate and send your query straight to Muzzafar on WhatsApp.</p>
+                <span class="text-blue-600 text-xs font-bold tracking-wider uppercase">Direct WhatsApp Estimate</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 mt-1 font-heading">Select Your Service Need</h2>
+                <p class="text-slate-600 text-sm mt-2">Get an instant turnaround estimate and send your query straight to Muzzafar on WhatsApp.</p>
             </div>
 
-            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6 quote-form-card">
+            <div class="shopify-card p-6 sm:p-8 rounded-2xl space-y-6 quote-form-card">
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-2">Device Category</label>
-                        <select id="device-type" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Device Category</label>
+                        <select id="device-type" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 font-medium focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
                             <option value="Android Smartphone">Android Smartphone</option>
                             <option value="iPhone / iOS Device">iPhone / iOS Device</option>
                             <option value="Tablet / iPad">Tablet / iPad</option>
@@ -253,8 +269,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-2">Brand</label>
-                        <select id="device-brand" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Brand</label>
+                        <select id="device-brand" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 font-medium focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
                             <option value="Samsung">Samsung</option>
                             <option value="Xiaomi / Redmi / Poco">Xiaomi / Redmi / Poco</option>
                             <option value="Realme">Realme</option>
@@ -266,8 +282,8 @@
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-400 mb-2">Primary Issue</label>
-                        <select id="device-issue" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none">
+                        <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Primary Issue</label>
+                        <select id="device-issue" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-slate-800 font-medium focus:border-blue-500 focus:bg-white focus:outline-none transition-all">
                             <option value="Display / Glass Replacement">Display / Glass Replacement</option>
                             <option value="Battery Draining Fast / Dead Battery">Battery Draining / Dead Battery</option>
                             <option value="Charging Port / Slow Charging">Charging Port Issue</option>
@@ -278,19 +294,19 @@
                     </div>
                 </div>
 
-                <!-- Dynamic Output Box -->
-                <div class="bg-gray-950/80 rounded-xl p-5 border border-gray-800 space-y-3">
+                <!-- Dynamic Status Output -->
+                <div class="bg-slate-50 rounded-xl p-5 border border-slate-200 space-y-3">
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-400">Estimated Service Time:</span>
-                        <span id="estimated-time" class="text-sm font-semibold text-amber-400">1 - 2 Hours (Same Day)</span>
+                        <span class="text-xs text-slate-600 font-medium">Estimated Turnaround:</span>
+                        <span id="estimated-time" class="text-sm font-bold text-blue-600 font-heading">1 - 2 Hours (Same Day)</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-xs text-gray-400">Diagnostic Check:</span>
-                        <span class="text-sm font-semibold text-cyan-400">Free On-Shop Inspection</span>
+                        <span class="text-xs text-slate-600 font-medium">Diagnostic Fee:</span>
+                        <span class="text-sm font-bold text-emerald-600 font-heading">Free In-Shop Inspection</span>
                     </div>
                 </div>
 
-                <button id="send-whatsapp-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 transition-all">
+                <button id="send-whatsapp-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-md shadow-emerald-600/20 flex items-center justify-center gap-2 transition-all">
                     <i data-lucide="message-square" class="w-5 h-5"></i>
                     <span>Inquire Best Price via WhatsApp (+91 8623904143)</span>
                 </button>
@@ -298,78 +314,78 @@
         </div>
     </section>
 
-    <!-- About Shop / Owner Section -->
+    <!-- About Section -->
     <section id="about" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="glass-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center about-wrapper">
+        <div class="shopify-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center about-wrapper">
             <div class="space-y-4 about-text">
-                <span class="text-amber-400 text-xs font-semibold tracking-wider uppercase">Local Expertise You Can Trust</span>
-                <h2 class="text-3xl font-bold text-white">Meet Muzzafar at Mobile Care</h2>
-                <p class="text-gray-300 leading-relaxed">
-                    Located on MR Highschool Road in Kadgaon, Gadhinglaj, Mobile Care has earned a reputation for transparent service, high-grade parts, and precision micro-repair work.
+                <span class="text-blue-600 text-xs font-bold tracking-wider uppercase">Trusted Local Expert</span>
+                <h2 class="text-3xl font-extrabold text-slate-900 font-heading">Meet Muzzafar at Mobile Care</h2>
+                <p class="text-slate-600 leading-relaxed">
+                    Located on MR Highschool Road in Kadgaon, Gadhinglaj, Mobile Care has earned a reputation for honest consultation, quality components, and expert technical service.
                 </p>
-                <p class="text-gray-400 text-sm leading-relaxed">
-                    Whether you need a quick 30-minute battery swapped or detailed motherboard fault tracing, Muzzafar provides direct consultation without hidden fees.
+                <p class="text-slate-600 text-sm leading-relaxed">
+                    Whether you need a simple battery replacement or advanced motherboard diagnostic work, owner Muzzafar offers direct assistance without hidden fees.
                 </p>
-                <div class="pt-2 flex items-center gap-4 text-sm text-gray-300">
+                <div class="pt-2 flex items-center gap-6 text-sm font-semibold text-slate-800">
                     <div class="flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-                        <span>Fair Pricing</span>
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600"></i>
+                        <span>Honest Pricing</span>
                     </div>
                     <div class="flex items-center gap-2">
-                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
-                        <span>Genuine Components</span>
+                        <i data-lucide="check-circle-2" class="w-5 h-5 text-emerald-600"></i>
+                        <span>Original Parts</span>
                     </div>
                 </div>
             </div>
 
-            <div class="bg-gray-900 rounded-xl p-6 border border-gray-800 space-y-4 about-hours">
-                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-3 flex items-center gap-2">
-                    <i data-lucide="clock" class="w-5 h-5 text-cyan-400"></i> Working Hours & Contact
+            <div class="bg-slate-50 rounded-xl p-6 border border-slate-200 space-y-4 about-hours">
+                <h3 class="text-lg font-bold text-slate-900 border-b border-slate-200 pb-3 flex items-center gap-2 font-heading">
+                    <i data-lucide="clock" class="w-5 h-5 text-blue-600"></i> Working Hours & Contact
                 </h3>
-                <div class="space-y-2 text-sm text-gray-300">
-                    <div class="flex justify-between py-1 border-b border-gray-800/50">
+                <div class="space-y-3 text-sm text-slate-700">
+                    <div class="flex justify-between py-1 border-b border-slate-200/60">
                         <span>Monday - Saturday:</span>
-                        <span class="font-semibold text-white">9:30 AM - 9:00 PM</span>
+                        <span class="font-bold text-slate-900">9:30 AM - 9:00 PM</span>
                     </div>
-                    <div class="flex justify-between py-1 border-b border-gray-800/50">
+                    <div class="flex justify-between py-1 border-b border-slate-200/60">
                         <span>Sunday:</span>
-                        <span class="font-semibold text-amber-400">10:00 AM - 6:00 PM</span>
+                        <span class="font-bold text-blue-600">10:00 AM - 6:00 PM</span>
                     </div>
                     <div class="flex justify-between py-1">
                         <span>Direct Call / WhatsApp:</span>
-                        <a href="tel:+918623904143" class="font-semibold text-cyan-400 hover:underline phone-pulse-target">+91 8623904143</a>
+                        <a href="tel:+918623904143" class="font-bold text-blue-600 hover:underline phone-pulse-target">+91 8623904143</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Location & Google Maps Integration -->
+    <!-- Location Section -->
     <section id="location" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="text-center max-w-2xl mx-auto mb-10 location-header">
-            <h2 class="text-3xl font-bold text-white">Visit Our Shop in Gadhinglaj</h2>
-            <p class="text-gray-400 mt-2">MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</p>
+            <h2 class="text-3xl font-extrabold text-slate-900 font-heading">Visit Our Shop in Gadhinglaj</h2>
+            <p class="text-slate-600 mt-2">MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</p>
         </div>
 
-        <div class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 location-card">
-            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-900 p-4 rounded-xl border border-gray-800">
+        <div class="shopify-card rounded-2xl p-4 sm:p-6 space-y-4 location-card">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-slate-50 p-4 rounded-xl border border-slate-200">
                 <div class="flex items-center gap-3">
-                    <i data-lucide="navigation" class="w-6 h-6 text-amber-400 shrink-0"></i>
+                    <i data-lucide="navigation" class="w-6 h-6 text-blue-600 shrink-0"></i>
                     <div>
-                        <div class="font-bold text-white">Mobile Care (Owner: Muzzafar)</div>
-                        <div class="text-xs text-gray-400">MR Highschool Road, Kadgaon, Gadhinglaj</div>
+                        <div class="font-bold text-slate-900 font-heading">Mobile Care (Owner: Muzzafar)</div>
+                        <div class="text-xs text-slate-600">MR Highschool Road, Kadgaon, Gadhinglaj</div>
                     </div>
                 </div>
                 <a href="https://maps.google.com/?q=Mobile+Care+MR+Highschool+Road+Kadgaon+Gadhinglaj+Maharashtra+416502" 
                    target="_blank" 
-                   class="bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all">
+                   class="bg-blue-600 hover:bg-blue-700 text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all shadow-sm">
                     <i data-lucide="external-link" class="w-4 h-4"></i>
                     <span>Open Direct Location in Google Maps</span>
                 </a>
             </div>
 
-            <!-- Embedded Google Map -->
-            <div class="w-full h-[380px] rounded-xl overflow-hidden border border-gray-800 bg-gray-900">
+            <!-- Embedded Map -->
+            <div class="w-full h-[380px] rounded-xl overflow-hidden border border-slate-200 bg-slate-100">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7661.964328067434!2d74.34333769093595!3d16.221356637921335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc08d2d55a3531f%3A0xa789a9e1d6347162!2sMobile%20Care!5e0!3m2!1sen!2sin!4v1791812866980!5m2!1sen!2sin" 
                     width="100%" 
@@ -384,35 +400,35 @@
     </section>
 
     <!-- Footer -->
-    <footer class="border-t border-gray-800 py-10 bg-gray-950 text-xs text-gray-400 text-center">
+    <footer class="border-t border-slate-200 py-10 bg-white text-xs text-slate-500 text-center">
         <div class="max-w-7xl mx-auto px-4 space-y-3">
-            <p class="font-semibold text-gray-300">Mobile Care &bull; Gadhinglaj</p>
+            <p class="font-bold text-slate-800 text-sm font-heading">Mobile Care &bull; Gadhinglaj</p>
             <p>MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502 | Phone: +91 8623904143</p>
-            <p class="text-gray-600">&copy; <span id="current-year"></span> Mobile Care. All Rights Reserved.</p>
+            <p class="text-slate-400">&copy; <span id="current-year"></span> Mobile Care. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <!-- Mobile Sticky Quick Action Bar -->
-    <div class="fixed bottom-0 left-0 right-0 z-50 bg-brand-dark/95 border-t border-gray-800 p-3 md:hidden backdrop-blur-lg grid grid-cols-2 gap-3">
-        <a href="tel:+918623904143" class="bg-gray-800 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 border border-gray-700 text-sm">
-            <i data-lucide="phone" class="w-4 h-4 text-amber-400"></i>
+    <!-- Mobile Sticky Bar -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 bg-white/95 border-t border-slate-200 p-3 md:hidden backdrop-blur-lg grid grid-cols-2 gap-3 shadow-lg">
+        <a href="tel:+918623904143" class="bg-slate-100 text-slate-900 py-3 rounded-xl font-bold flex items-center justify-center gap-2 border border-slate-200 text-sm">
+            <i data-lucide="phone" class="w-4 h-4 text-blue-600"></i>
             <span>Call Now</span>
         </a>
         <a href="https://wa.me/918623904143?text=Hi%20Muzzafar,%20I%20want%20to%20inquire%20about%20mobile%20repair." 
            target="_blank" 
-           class="bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-lg shadow-emerald-950">
+           class="bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-md">
             <i data-lucide="message-circle" class="w-4 h-4"></i>
             <span>WhatsApp</span>
         </a>
     </div>
 
-    <!-- JavaScript Scripts & Animations -->
+    <!-- JavaScript Scripts -->
     <script>
-        // Initialize Lucide Icons & Footer Year
+        // Lucide Icons & Footer Year
         lucide.createIcons();
         document.getElementById('current-year').textContent = new Date().getFullYear();
 
-        // Lenis Smooth Scroll Setup
+        // Lenis Smooth Scroll
         const lenis = new Lenis({
             duration: 1.2,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -426,10 +442,9 @@
         }
         requestAnimationFrame(raf);
 
-        // GSAP & ScrollTrigger Setup
+        // GSAP Animations
         gsap.registerPlugin(ScrollTrigger);
 
-        // Scroll Progress Bar Update
         window.addEventListener('scroll', () => {
             const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
             const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
@@ -438,99 +453,69 @@
             if (progressBar) progressBar.style.width = scrolled + '%';
         });
 
-        // Respect prefers-reduced-motion check
         const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
         if (!mediaQuery.matches) {
-            
-            // Hero Section Entrance Animations
             const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
             heroTl.from('.hero-text-col > div:first-child', { opacity: 0, y: -20, duration: 0.6 })
-                  .from('.hero-headline', { opacity: 0, y: 40, duration: 0.8 }, '-=0.3')
-                  .from('.hero-sub', { opacity: 0, y: 30, duration: 0.8 }, '-=0.5')
+                  .from('.hero-headline', { opacity: 0, y: 30, duration: 0.8 }, '-=0.3')
+                  .from('.hero-sub', { opacity: 0, y: 20, duration: 0.8 }, '-=0.5')
                   .from('.hero-btns', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
                   .from('.hero-badges > div', { opacity: 0, y: 20, stagger: 0.1, duration: 0.6 }, '-=0.4')
                   .from('#hero-3d-wrapper', { opacity: 0, scale: 0.95, duration: 1 }, '-=0.8');
 
-            // Continuous Floating Animation for 3D Hero Container
             gsap.to('#hero-3d-wrapper', {
-                y: 12,
+                y: 10,
                 duration: 2.5,
                 repeat: -1,
                 yoyo: true,
                 ease: 'sine.inOut'
             });
 
-            // Services Grid Scroll Reveal
-            gsap.from('#services .glass-card', {
-                scrollTrigger: {
-                    trigger: '#services',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
+            gsap.from('#services .shopify-card', {
+                scrollTrigger: { trigger: '#services', start: 'top 80%' },
                 opacity: 0,
-                y: 60,
-                stagger: 0.15,
+                y: 40,
+                stagger: 0.12,
                 duration: 0.8,
                 ease: 'power3.out'
             });
 
-            // Inquiry Quote Form Scroll Reveal
             gsap.from('.quote-form-card', {
-                scrollTrigger: {
-                    trigger: '#quote',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
+                scrollTrigger: { trigger: '#quote', start: 'top 80%' },
                 opacity: 0,
-                scale: 0.95,
-                y: 40,
-                duration: 0.9,
+                scale: 0.96,
+                y: 30,
+                duration: 0.8,
                 ease: 'power3.out'
             });
 
-            // About Section Asymmetric Entrance
             gsap.from('.about-text', {
-                scrollTrigger: {
-                    trigger: '#about',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
+                scrollTrigger: { trigger: '#about', start: 'top 80%' },
                 opacity: 0,
-                x: -50,
-                duration: 0.9,
+                x: -40,
+                duration: 0.8,
                 ease: 'power3.out'
             });
 
             gsap.from('.about-hours', {
-                scrollTrigger: {
-                    trigger: '#about',
-                    start: 'top 80%',
-                    toggleActions: 'play none none none'
-                },
+                scrollTrigger: { trigger: '#about', start: 'top 80%' },
                 opacity: 0,
-                x: 50,
-                duration: 0.9,
+                x: 40,
+                duration: 0.8,
                 ease: 'power3.out',
-                delay: 0.2
+                delay: 0.15
             });
 
-            // Location Section Reveal
             gsap.from('.location-card', {
-                scrollTrigger: {
-                    trigger: '#location',
-                    start: 'top 85%',
-                    toggleActions: 'play none none none'
-                },
+                scrollTrigger: { trigger: '#location', start: 'top 85%' },
                 opacity: 0,
-                y: 50,
-                duration: 0.9,
+                y: 40,
+                duration: 0.8,
                 ease: 'power3.out'
             });
 
-            // Subtle pulsing attention animation for the contact phone number
             gsap.to('.phone-pulse-target', {
                 scale: 1.05,
-                color: '#38bdf8',
                 duration: 1.2,
                 repeat: -1,
                 yoyo: true,
@@ -538,7 +523,7 @@
             });
         }
 
-        // Dynamic WhatsApp Inquiry Link Handler
+        // WhatsApp Service Quote Generator
         const deviceType = document.getElementById('device-type');
         const deviceBrand = document.getElementById('device-brand');
         const deviceIssue = document.getElementById('device-issue');
@@ -548,9 +533,9 @@
         function updateInquiry() {
             const issueVal = deviceIssue.value;
             if (issueVal.includes('Motherboard') || issueVal.includes('Water')) {
-                estTime.textContent = "Same Day to 24 Hours (Requires Diagnostics)";
+                estTime.textContent = "Same Day to 24 Hours (Requires Inspection)";
             } else {
-                estTime.textContent = "1 - 2 Hours (Same Day Fast Service)";
+                estTime.textContent = "1 - 2 Hours (Same Day Express)";
             }
 
             const message = `Hi Muzzafar, I would like a price quote for my device:\n- Category: ${deviceType.value}\n- Brand: ${deviceBrand.value}\n- Issue: ${deviceIssue.value}\nLocation: Mobile Care, Gadhinglaj.`;
@@ -564,7 +549,7 @@
         deviceIssue.addEventListener('change', updateInquiry);
         updateInquiry();
 
-        // Three.js 3D Interactive Tech Phone Canvas Effect with Fallback
+        // 3D Canvas Handler
         (function initThreeJS() {
             const container = document.getElementById('webgl-container');
             const fallback = document.getElementById('fallback-graphic');
@@ -580,54 +565,42 @@
                 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
                 container.appendChild(renderer.domElement);
 
-                // Hide fallback graphic once Three.js canvas mounts
                 if (fallback) fallback.style.opacity = '0';
                 setTimeout(() => { if (fallback) fallback.remove(); }, 500);
 
-                // Smartphone Group
                 const phoneGroup = new THREE.Group();
-
-                // Phone Body Glass
                 const bodyGeo = new THREE.BoxGeometry(3.6, 7.2, 0.3);
                 const bodyMat = new THREE.MeshPhongMaterial({
-                    color: 0x0b1329,
-                    emissive: 0x06283d,
-                    specular: 0x06b6d4,
-                    shininess: 100,
+                    color: 0x0f172a,
+                    emissive: 0x1e293b,
+                    specular: 0x2563eb,
+                    shininess: 90,
                     transparent: true,
-                    opacity: 0.85
+                    opacity: 0.9
                 });
                 const phoneBody = new THREE.Mesh(bodyGeo, bodyMat);
                 phoneGroup.add(phoneBody);
 
-                // Screen Frame Outline
                 const edgesGeo = new THREE.EdgesGeometry(bodyGeo);
-                const edgesMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, linewidth: 2 });
+                const edgesMat = new THREE.LineBasicMaterial({ color: 0x38bdf8, linewidth: 2 });
                 const wireframe = new THREE.LineSegments(edgesGeo, edgesMat);
                 phoneGroup.add(wireframe);
 
-                // Inner Circuit Node Rings
                 const ringGeo = new THREE.RingGeometry(0.4, 0.6, 32);
-                const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+                const ringMat = new THREE.MeshBasicMaterial({ color: 0x0d9488, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
                 const ringMesh = new THREE.Mesh(ringGeo, ringMat);
                 ringMesh.position.z = 0.16;
                 phoneGroup.add(ringMesh);
 
                 scene.add(phoneGroup);
 
-                // Ambient & Point Lighting
-                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
                 scene.add(ambientLight);
 
-                const pointLight = new THREE.PointLight(0x06b6d4, 2, 50);
+                const pointLight = new THREE.PointLight(0x2563eb, 2, 50);
                 pointLight.position.set(5, 5, 5);
                 scene.add(pointLight);
 
-                const amberLight = new THREE.PointLight(0xf59e0b, 1.5, 50);
-                amberLight.position.set(-5, -5, 5);
-                scene.add(amberLight);
-
-                // Interactive Drag/Mouse Movement
                 let isDragging = false;
                 let previousMousePosition = { x: 0, y: 0 };
 
@@ -642,7 +615,6 @@
                 });
                 window.addEventListener('mouseup', () => { isDragging = false; });
 
-                // Touch events for mobile drag
                 container.addEventListener('touchstart', (e) => {
                     if (e.touches.length === 1) {
                         isDragging = true;
@@ -662,19 +634,17 @@
                 });
                 window.addEventListener('touchend', () => { isDragging = false; });
 
-                // Animation Loop
                 function animate() {
                     requestAnimationFrame(animate);
                     if (!isDragging) {
                         phoneGroup.rotation.y += 0.005;
-                        phoneGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.15;
+                        phoneGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.12;
                     }
                     ringMesh.rotation.z += 0.02;
                     renderer.render(scene, camera);
                 }
                 animate();
 
-                // Resize handling
                 window.addEventListener('resize', () => {
                     if (!container) return;
                     camera.aspect = container.clientWidth / container.clientHeight;
@@ -682,7 +652,7 @@
                     renderer.setSize(container.clientWidth, container.clientHeight);
                 });
             } catch (err) {
-                console.error("WebGL initialization error:", err);
+                console.error("WebGL error:", err);
             }
         })();
     </script>
