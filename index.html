@@ -1,1683 +1,523 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Care | Mobile Repair & Accessories Shop in Gadhinglaj</title>
-    <meta name="description" content="Fast & reliable smartphone repair shop on Bhadgaon Road, Gadhinglaj. Screen replacement, battery repair, charging port fix, software solutions, and original mobile accessories.">
+    <title>Mobile Care | Expert Smartphone & Gadget Repair in Gadhinglaj</title>
+    <meta name="description" content="Mobile Care by Muzzafar in Gadhinglaj. Premium mobile repairs, screen replacements, motherboard diagnostics, and accessories. Fast service & guaranteed satisfaction.">
+    <meta name="referrer" content="no-referrer-when-downgrade">
     
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            cyan: '#06b6d4',
+                            amber: '#f59e0b',
+                            dark: '#0b0f19',
+                            card: '#111827',
+                            border: '#1f2937'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <!-- Lucide Icons & Three.js -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 
     <style>
-        :root {
-            --white: #FFFFFF;
-            --off-white: #F8FAFC;
-            --charcoal: #1A1A2E;
-            --charcoal-light: #252542;
-            --electric-blue: #2563EB;
-            --electric-blue-hover: #1D4ED8;
-            --cyan: #06B6D4;
-            --cyan-light: #E0F2FE;
-            --gray-subtle: #E2E8F0;
-            --text-dark: #0F172A;
-            --text-muted: #64748B;
-            
-            --font-heading: 'Space Grotesk', sans-serif;
-            --font-body: 'Inter', sans-serif;
-
-            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
-            --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
-            --shadow-lg: 0 20px 25px -5px rgba(37, 99, 235, 0.12), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-            --radius-card: 16px;
-            --radius-btn: 50px;
-            --transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-            font-size: 16px;
-        }
-
         body {
-            font-family: var(--font-body);
-            background-color: var(--white);
-            color: var(--text-dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
+            background-color: #0b0f19;
+            color: #f3f4f6;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
         }
-
-        h1, h2, h3, h4, h5, h6 {
-            font-family: var(--font-heading);
-            color: var(--charcoal);
-            line-height: 1.25;
-            font-weight: 700;
-        }
-
-        a {
-            text-decoration: none;
-            color: inherit;
-            transition: var(--transition);
-        }
-
-        ul {
-            list-style: none;
-        }
-
-        img {
-            max-width: 100%;
-            height: auto;
-            display: block;
-        }
-
-        .container {
-            width: 100%;
-            max-width: 1240px;
-            margin: 0 auto;
-            padding: 0 1.5rem;
-        }
-
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.5rem;
-            padding: 0.85rem 1.75rem;
-            font-family: var(--font-body);
-            font-weight: 600;
-            font-size: 0.95rem;
-            border-radius: var(--radius-btn);
-            cursor: pointer;
-            transition: var(--transition);
-            border: 2px solid transparent;
-            text-align: center;
-        }
-
-        .btn-primary {
-            background-color: var(--electric-blue);
-            color: var(--white);
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-        }
-
-        .btn-primary:hover {
-            background-color: var(--electric-blue-hover);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
-        }
-
-        .btn-cyan {
-            background-color: var(--cyan);
-            color: var(--white);
-            box-shadow: 0 4px 14px rgba(6, 182, 212, 0.35);
-        }
-
-        .btn-cyan:hover {
-            background-color: #0891B2;
-            transform: translateY(-2px);
-        }
-
-        .btn-outline {
-            background-color: transparent;
-            border-color: rgba(255, 255, 255, 0.4);
-            color: var(--white);
-        }
-
-        .btn-outline:hover {
-            background-color: var(--white);
-            color: var(--charcoal);
-            border-color: var(--white);
-            transform: translateY(-2px);
-        }
-
-        .section-header {
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 3.5rem auto;
-        }
-
-        .section-tag {
-            display: inline-block;
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--electric-blue);
-            font-weight: 700;
-            background-color: rgba(37, 99, 235, 0.08);
-            padding: 0.4rem 1rem;
-            border-radius: 50px;
-            margin-bottom: 0.85rem;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 4vw, 2.75rem);
-            margin-bottom: 1rem;
-        }
-
-        .section-subtitle {
-            font-size: 1.05rem;
-            color: var(--text-muted);
-            font-weight: 400;
-        }
-
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .announcement-bar {
-            background-color: var(--charcoal);
-            color: var(--white);
-            text-align: center;
-            padding: 0.6rem 1rem;
-            font-size: 0.88rem;
-            font-weight: 500;
-            letter-spacing: 0.3px;
-            position: relative;
-            z-index: 1002;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .announcement-bar span {
-            color: var(--cyan);
-            font-weight: 700;
-        }
-
-        .header {
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.9);
+        .glass-card {
+            background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid var(--gray-subtle);
-            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.08);
         }
-
-        .header.scrolled {
-            box-shadow: var(--shadow-sm);
-            background-color: rgba(255, 255, 255, 0.98);
+        .glass-card-hover:hover {
+            border-color: rgba(6, 182, 212, 0.4);
+            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
         }
-
-        .nav-container {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            height: 76px;
-        }
-
-        .logo {
-            font-family: var(--font-heading);
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--charcoal);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo-icon {
-            width: 36px;
-            height: 36px;
-            background: linear-gradient(135deg, var(--electric-blue), var(--cyan));
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--white);
-            font-size: 1.2rem;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
-        }
-
-        .logo span {
-            color: var(--electric-blue);
-        }
-
-        .nav-menu {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-        }
-
-        .nav-link {
-            font-size: 0.95rem;
-            font-weight: 500;
-            color: var(--text-dark);
-            position: relative;
-            padding: 0.25rem 0;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--electric-blue);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after, .nav-link.active::after {
-            width: 100%;
-        }
-
-        .header-actions {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            background: none;
-            border: none;
-            width: 28px;
-            height: 22px;
-            position: relative;
-            z-index: 1002;
-        }
-
-        .hamburger span {
+        #webgl-container canvas {
             display: block;
-            width: 100%;
-            height: 2.5px;
-            background-color: var(--charcoal);
-            position: absolute;
-            transition: var(--transition);
-            border-radius: 2px;
-        }
-
-        .hamburger span:nth-child(1) { top: 0; }
-        .hamburger span:nth-child(2) { top: 9px; }
-        .hamburger span:nth-child(3) { top: 18px; }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg);
-            top: 9px;
-        }
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg);
-            top: 9px;
-        }
-
-        .mobile-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(15, 23, 42, 0.5);
-            backdrop-filter: blur(4px);
-            z-index: 999;
-            opacity: 0;
-            pointer-events: none;
-            transition: var(--transition);
-        }
-
-        .mobile-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .hero {
-            position: relative;
-            min-height: 88vh;
-            display: flex;
-            align-items: center;
-            background-image: linear-gradient(135deg, rgba(26, 26, 46, 0.9) 0%, rgba(37, 99, 235, 0.78) 100%), url('https://images.unsplash.com/photo-1581092160607-ee22621dd758?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--white);
-            padding: 5rem 0;
-        }
-
-        @media (max-width: 1024px) {
-            .hero {
-                background-attachment: scroll;
-            }
-        }
-
-        .hero-content {
-            max-width: 720px;
-            z-index: 2;
-        }
-
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: rgba(255, 255, 255, 0.15);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 0.5rem 1.25rem;
-            border-radius: var(--radius-btn);
-            font-size: 0.88rem;
-            font-weight: 600;
-            margin-bottom: 1.5rem;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 5.5vw, 4.2rem);
-            margin-bottom: 1.25rem;
-            color: var(--white);
-            line-height: 1.15;
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.05rem, 2vw, 1.25rem);
-            margin-bottom: 2.5rem;
-            color: rgba(255, 255, 255, 0.9);
-            font-weight: 300;
-            line-height: 1.6;
-        }
-
-        .hero-buttons {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .trust-bar {
-            background-color: var(--off-white);
-            border-top: 1px solid var(--gray-subtle);
-            border-bottom: 1px solid var(--gray-subtle);
-            padding: 1.75rem 0;
-        }
-
-        .trust-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 1.5rem;
-            align-items: center;
-        }
-
-        .trust-item {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.75rem;
-            font-weight: 600;
-            font-size: 0.95rem;
-            color: var(--charcoal);
-        }
-
-        .trust-icon {
-            width: 36px;
-            height: 36px;
-            background-color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--cyan);
-            box-shadow: var(--shadow-sm);
-            font-size: 1.1rem;
-            border: 1px solid var(--gray-subtle);
-        }
-
-        .services {
-            padding: 6.5rem 0;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background-color: var(--white);
-            border-radius: var(--radius-card);
-            padding: 2.25rem;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-subtle);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lg);
-            border-color: rgba(37, 99, 235, 0.3);
-        }
-
-        .service-icon-wrap {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(37, 99, 235, 0.1), rgba(6, 182, 212, 0.15));
-            border-radius: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.75rem;
-            color: var(--electric-blue);
-            margin-bottom: 1.5rem;
-        }
-
-        .service-title {
-            font-size: 1.35rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .service-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-
-        .service-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 600;
-            font-size: 0.92rem;
-            color: var(--electric-blue);
-        }
-
-        .service-card:hover .service-link {
-            gap: 0.75rem;
-            color: var(--electric-blue-hover);
-        }
-
-        .accessories {
-            padding: 6.5rem 0;
-            background-color: var(--off-white);
-            border-top: 1px solid var(--gray-subtle);
-            border-bottom: 1px solid var(--gray-subtle);
-        }
-
-        .accessories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .accessory-card {
-            background-color: var(--white);
-            border-radius: var(--radius-card);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-subtle);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .accessory-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .accessory-img {
-            width: 100%;
-            height: 230px;
-            overflow: hidden;
-            position: relative;
-            background-color: var(--off-white);
-        }
-
-        .accessory-img img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.5s ease;
-        }
-
-        .accessory-card:hover .accessory-img img {
-            transform: scale(1.06);
-        }
-
-        .accessory-tag {
-            position: absolute;
-            top: 1rem;
-            left: 1rem;
-            background-color: var(--charcoal);
-            color: var(--white);
-            padding: 0.35rem 0.85rem;
-            border-radius: 50px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .accessory-info {
-            padding: 1.5rem;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-            justify-content: space-between;
-        }
-
-        .accessory-name {
-            font-size: 1.2rem;
-            margin-bottom: 0.4rem;
-        }
-
-        .accessory-desc {
-            font-size: 0.88rem;
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-        }
-
-        .accessory-action {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding-top: 1rem;
-            border-top: 1px solid var(--gray-subtle);
-        }
-
-        .accessory-badge {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--cyan);
-        }
-
-        .how-it-works {
-            padding: 6.5rem 0;
-        }
-
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .step-card {
-            background-color: var(--white);
-            padding: 2.5rem 2rem;
-            border-radius: var(--radius-card);
-            border: 1px solid var(--gray-subtle);
-            box-shadow: var(--shadow-sm);
-            text-align: center;
-            transition: var(--transition);
-        }
-
-        .step-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .step-number {
-            width: 50px;
-            height: 50px;
-            background: linear-gradient(135deg, var(--electric-blue), var(--cyan));
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.25rem;
-            margin: 0 auto 1.5rem auto;
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
-        }
-
-        .step-title {
-            font-size: 1.3rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .step-desc {
-            font-size: 0.95rem;
-            color: var(--text-muted);
-            line-height: 1.6;
-        }
-
-        .reviews {
-            padding: 6.5rem 0;
-            background-color: var(--off-white);
-            border-top: 1px solid var(--gray-subtle);
-            border-bottom: 1px solid var(--gray-subtle);
-        }
-
-        .reviews-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
-            gap: 2rem;
-        }
-
-        .review-card {
-            background-color: var(--white);
-            padding: 2.25rem;
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-subtle);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .review-stars {
-            color: #F59E0B;
-            font-size: 1.1rem;
-            margin-bottom: 1rem;
-            letter-spacing: 2px;
-        }
-
-        .review-quote {
-            font-size: 0.98rem;
-            color: var(--text-dark);
-            margin-bottom: 1.5rem;
-            line-height: 1.65;
-            font-style: italic;
-        }
-
-        .review-author {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            border-top: 1px solid var(--gray-subtle);
-            padding-top: 1.25rem;
-        }
-
-        .author-avatar {
-            width: 44px;
-            height: 44px;
-            background-color: var(--cyan-light);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: var(--font-heading);
-            font-weight: 700;
-            font-size: 1.1rem;
-            color: var(--electric-blue);
-        }
-
-        .author-info h5 {
-            font-size: 0.98rem;
-            margin-bottom: 0.1rem;
-        }
-
-        .author-info p {
-            font-size: 0.82rem;
-            color: var(--text-muted);
-        }
-
-        .visit {
-            padding: 7rem 0;
-        }
-
-        .visit-grid {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 3.5rem;
-            align-items: stretch;
-        }
-
-        @media (max-width: 992px) {
-            .visit-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .visit-info-card {
-            background-color: var(--white);
-            padding: 2.75rem;
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-subtle);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-
-        .visit-detail-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 1.2rem;
-            margin-bottom: 1.75rem;
-        }
-
-        .visit-detail-item .icon-box {
-            width: 46px;
-            height: 46px;
-            background-color: rgba(37, 99, 235, 0.1);
-            color: var(--electric-blue);
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .visit-detail-item h5 {
-            font-size: 0.88rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--text-muted);
-            margin-bottom: 0.2rem;
-        }
-
-        .visit-detail-item p {
-            font-size: 1.05rem;
-            font-weight: 600;
-            color: var(--text-dark);
-        }
-
-        .map-container {
-            width: 100%;
-            min-height: 420px;
-            border-radius: var(--radius-card);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--gray-subtle);
-        }
-
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            min-height: 420px;
-            border: 0;
-        }
-
-        .quote {
-            padding: 6.5rem 0;
-            background-color: var(--off-white);
-            border-top: 1px solid var(--gray-subtle);
-        }
-
-        .quote-wrapper {
-            max-width: 720px;
-            margin: 0 auto;
-            background-color: var(--white);
-            padding: 3.5rem;
-            border-radius: var(--radius-card);
-            box-shadow: var(--shadow-md);
-            border: 1px solid var(--gray-subtle);
-        }
-
-        @media (max-width: 576px) {
-            .quote-wrapper {
-                padding: 2rem;
-            }
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
-        @media (max-width: 768px) {
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 0;
-            }
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.92rem;
-            margin-bottom: 0.5rem;
-            color: var(--text-dark);
-        }
-
-        .form-control {
-            width: 100%;
-            padding: 0.85rem 1.1rem;
-            font-family: var(--font-body);
-            font-size: 0.98rem;
-            border: 1px solid var(--gray-subtle);
-            border-radius: 10px;
-            background-color: var(--off-white);
-            color: var(--text-dark);
-            transition: var(--transition);
-        }
-
-        .form-control:focus {
-            outline: none;
-            border-color: var(--electric-blue);
-            background-color: var(--white);
-            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
-        }
-
-        textarea.form-control {
-            resize: vertical;
-            min-height: 120px;
-        }
-
-        .form-submit-btn {
-            width: 100%;
-            padding: 1rem;
-            font-size: 1rem;
-            font-weight: 600;
-            border-radius: var(--radius-btn);
-            background-color: var(--electric-blue);
-            color: var(--white);
-            border: none;
-            cursor: pointer;
-            transition: var(--transition);
-            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.35);
-        }
-
-        .form-submit-btn:hover {
-            background-color: var(--electric-blue-hover);
-            box-shadow: 0 6px 20px rgba(37, 99, 235, 0.45);
-        }
-
-        .form-success-msg {
-            display: none;
-            background-color: #ECFDF5;
-            color: #047857;
-            padding: 1rem;
-            border-radius: 10px;
-            text-align: center;
-            font-weight: 600;
-            margin-top: 1.25rem;
-            border: 1px solid #A7F3D0;
-        }
-
-        .footer {
-            background-color: var(--charcoal);
-            color: var(--white);
-            padding: 5rem 0 2rem 0;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 3rem;
-            margin-bottom: 4rem;
-        }
-
-        @media (max-width: 992px) {
-            .footer-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 2.5rem;
-            }
-        }
-
-        @media (max-width: 576px) {
-            .footer-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .footer-col h4 {
-            font-size: 1.2rem;
-            color: var(--white);
-            margin-bottom: 1.5rem;
-            position: relative;
-            padding-bottom: 0.5rem;
-        }
-
-        .footer-col h4::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            bottom: 0;
-            width: 30px;
-            height: 2px;
-            background-color: var(--cyan);
-        }
-
-        .footer-col p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-links {
-            display: flex;
-            flex-direction: column;
-            gap: 0.75rem;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.92rem;
-            transition: var(--transition);
-        }
-
-        .footer-links a:hover {
-            color: var(--cyan);
-            padding-left: 4px;
-        }
-
-        .footer-contact-item {
-            display: flex;
-            gap: 0.75rem;
-            margin-bottom: 1rem;
-            color: rgba(255, 255, 255, 0.75);
-            font-size: 0.92rem;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 2rem;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-            gap: 1rem;
-            font-size: 0.88rem;
-            color: rgba(255, 255, 255, 0.55);
-        }
-
-        .back-to-top {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 48px;
-            height: 48px;
-            background-color: var(--charcoal);
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            box-shadow: var(--shadow-md);
-            cursor: pointer;
-            z-index: 998;
-            opacity: 0;
-            visibility: hidden;
-            transition: var(--transition);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .back-to-top.visible {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .back-to-top:hover {
-            background-color: var(--electric-blue);
-            transform: translateY(-3px);
-        }
-
-        .floating-whatsapp {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            width: 56px;
-            height: 56px;
-            background-color: #25D366;
-            color: var(--white);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
-            z-index: 998;
-            transition: var(--transition);
-        }
-
-        .floating-whatsapp:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
-        }
-
-        @media (max-width: 992px) {
-            .hamburger {
-                display: block;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                width: 78%;
-                max-width: 360px;
-                height: 100vh;
-                background-color: var(--white);
-                flex-direction: column;
-                justify-content: center;
-                align-items: center;
-                gap: 2rem;
-                box-shadow: var(--shadow-lg);
-                transition: right 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-                z-index: 1001;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-link {
-                font-size: 1.15rem;
-            }
+            width: 100% !important;
+            height: 100% !important;
         }
     </style>
 </head>
-<body>
+<body class="bg-brand-dark text-gray-100 min-h-screen pb-20 md:pb-0">
 
-    <div class="announcement-bar">
-        ⚡ <span>30-Min Express Repair</span> on Bhadgaon Road, Gadhinglaj | Call: +91 98765 43210 ⚡
+    <!-- Top Announcement Bar -->
+    <div class="bg-gradient-to-r from-cyan-900 via-gray-900 to-amber-950 text-xs md:text-sm py-2 px-4 text-center border-b border-gray-800 flex items-center justify-center gap-2">
+        <i data-lucide="map-pin" class="w-4 h-4 text-cyan-400 shrink-0"></i>
+        <span>MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</span>
+        <span class="hidden md:inline text-gray-500">|</span>
+        <a href="tel:+918623904143" class="hidden md:inline-flex items-center gap-1 text-cyan-400 hover:underline font-semibold">
+            <i data-lucide="phone" class="w-3.5 h-3.5"></i> +91 8623904143
+        </a>
     </div>
 
-    <div class="mobile-overlay" id="mobile-overlay"></div>
+    <!-- Navigation -->
+    <nav class="sticky top-0 z-40 bg-brand-dark/90 backdrop-blur-md border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-amber-500 p-0.5 flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <div class="w-full h-full bg-brand-dark rounded-[10px] flex items-center justify-center">
+                        <i data-lucide="smartphone" class="w-5 h-5 text-cyan-400"></i>
+                    </div>
+                </div>
+                <div>
+                    <span class="text-xl font-bold tracking-tight bg-gradient-to-r from-cyan-400 to-amber-400 bg-clip-text text-transparent">MOBILE CARE</span>
+                    <span class="block text-[10px] text-gray-400 font-medium tracking-wider uppercase">By Muzzafar</span>
+                </div>
+            </div>
 
-    <header class="header" id="header">
-        <div class="container nav-container">
-            <a href="#" class="logo">
-                <div class="logo-icon">📱</div>
-                Mobile <span>Care</span>
-            </a>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-gray-300">
+                <a href="#services" class="hover:text-cyan-400 transition-colors">Services</a>
+                <a href="#quote" class="hover:text-cyan-400 transition-colors">Inquiry Tool</a>
+                <a href="#about" class="hover:text-cyan-400 transition-colors">About</a>
+                <a href="#location" class="hover:text-cyan-400 transition-colors">Location</a>
+            </div>
 
-            <nav>
-                <ul class="nav-menu" id="nav-menu">
-                    <li><a href="#home" class="nav-link active">Home</a></li>
-                    <li><a href="#services" class="nav-link">Repair Services</a></li>
-                    <li><a href="#accessories" class="nav-link">Accessories</a></li>
-                    <li><a href="#how-it-works" class="nav-link">How It Works</a></li>
-                    <li><a href="#reviews" class="nav-link">Reviews</a></li>
-                    <li><a href="#contact" class="nav-link">Free Quote</a></li>
-                </ul>
-            </nav>
-
-            <div class="header-actions">
-                <a href="tel:+919876543210" class="btn btn-primary" style="padding: 0.65rem 1.25rem; font-size: 0.9rem;">
-                    📞 Call Now
+            <div class="flex items-center gap-3">
+                <a href="https://wa.me/918623904143?text=Hi%20Muzzafar,%20I%20have%20an%20inquiry%20about%20mobile%20repair." 
+                   target="_blank" 
+                   class="bg-emerald-600 hover:bg-emerald-500 text-white px-4 py-2 rounded-xl text-sm font-semibold flex items-center gap-2 shadow-lg shadow-emerald-900/30 transition-all hover:scale-105">
+                    <i data-lucide="message-circle" class="w-4 h-4"></i>
+                    <span>WhatsApp</span>
                 </a>
-                <button class="hamburger" id="hamburger" aria-label="Toggle Navigation">
-                    <span></span>
-                    <span></span>
-                    <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with 3D Canvas -->
+    <section class="relative overflow-hidden pt-8 pb-16 md:py-24 border-b border-gray-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
+            
+            <div class="z-10 space-y-6 text-center md:text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 text-xs font-semibold">
+                    <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
+                    Gadhinglaj's Trusted Mobile Repair Center
+                </div>
+
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                    Fast, Reliable & <br class="hidden sm:inline">
+                    <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">Professional Repair</span>
+                </h1>
+
+                <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0">
+                    From broken displays and battery replacements to complex IC motherboard diagnostics, owner <strong class="text-gray-200">Muzzafar</strong> ensures quick turnaround with genuine parts.
+                </p>
+
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
+                    <a href="#quote" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
+                        <i data-lucide="wrench" class="w-5 h-5"></i>
+                        <span>Service Inquiry Tool</span>
+                    </a>
+                    <a href="tel:+918623904143" class="bg-gray-800 hover:bg-gray-700 text-gray-200 border border-gray-700 font-semibold px-6 py-3.5 rounded-xl flex items-center justify-center gap-2 transition-all">
+                        <i data-lucide="phone-call" class="w-5 h-5 text-amber-400"></i>
+                        <span>Call +91 8623904143</span>
+                    </a>
+                </div>
+
+                <!-- Feature Badges -->
+                <div class="grid grid-cols-3 gap-3 pt-6 border-t border-gray-800/80 text-left">
+                    <div>
+                        <div class="text-amber-400 font-bold text-lg">Same-Day</div>
+                        <div class="text-xs text-gray-400">Quick Fixes</div>
+                    </div>
+                    <div>
+                        <div class="text-cyan-400 font-bold text-lg">100% Genuine</div>
+                        <div class="text-xs text-gray-400">Quality Parts</div>
+                    </div>
+                    <div>
+                        <div class="text-emerald-400 font-bold text-lg">Expert Care</div>
+                        <div class="text-xs text-gray-400">By Muzzafar</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 3D WebGL Canvas Container -->
+            <div class="relative h-[340px] sm:h-[420px] w-full rounded-2xl glass-card overflow-hidden flex items-center justify-center shadow-2xl">
+                <div id="webgl-container" class="absolute inset-0 w-full h-full"></div>
+                <div class="absolute bottom-4 left-4 right-4 text-center pointer-events-none">
+                    <span class="inline-block px-3 py-1 bg-gray-900/80 backdrop-blur border border-gray-700 rounded-full text-[11px] text-gray-400">
+                        Interactive 3D Tech Inspection (Drag to rotate)
+                    </span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-12">
+            <h2 class="text-3xl font-bold text-white">Our Specialized Services</h2>
+            <p class="text-gray-400 mt-2">Comprehensive repair solutions for all Android smartphones and iPhones in Gadhinglaj.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-cyan-950/80 border border-cyan-800 flex items-center justify-center text-cyan-400">
+                    <i data-lucide="smartphone" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Display & Touch Glass</h3>
+                <p class="text-sm text-gray-400">Cracked screen? Premium AMOLED and LCD display replacements with high color accuracy and touch sensitivity.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-amber-950/80 border border-amber-800 flex items-center justify-center text-amber-400">
+                    <i data-lucide="battery-charging" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Battery Replacement</h3>
+                <p class="text-sm text-gray-400">Fast-draining or swollen battery? Get brand new, long-lasting high-capacity battery installations.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-purple-950/80 border border-purple-800 flex items-center justify-center text-purple-400">
+                    <i data-lucide="cpu" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Motherboard & IC Repair</h3>
+                <p class="text-sm text-gray-400">Advanced micro-soldering, charging IC repair, network chip troubleshooting, and dead phone recovery.</p>
+            </div>
+
+            <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
+                <div class="w-12 h-12 rounded-xl bg-emerald-950/80 border border-emerald-800 flex items-center justify-center text-emerald-400">
+                    <i data-lucide="droplet" class="w-6 h-6"></i>
+                </div>
+                <h3 class="text-xl font-bold text-white">Water Damage Fix</h3>
+                <p class="text-sm text-gray-400">Accidental liquid spills? Deep ultrasonic cleaning and circuit board drying to prevent corrosion.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Price-Free Service Inquiry Tool -->
+    <section id="quote" class="py-16 bg-gray-900/50 border-y border-gray-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-10">
+                <span class="text-cyan-400 text-xs font-semibold tracking-wider uppercase">Direct WhatsApp Estimate</span>
+                <h2 class="text-3xl font-bold text-white mt-1">Select Your Service Need</h2>
+                <p class="text-gray-400 text-sm mt-2">Get an instant turnaround estimate and send your query straight to Muzzafar on WhatsApp.</p>
+            </div>
+
+            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6">
+                <div class="grid sm:grid-cols-3 gap-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 mb-2">Device Category</label>
+                        <select id="device-type" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none">
+                            <option value="Android Smartphone">Android Smartphone</option>
+                            <option value="iPhone / iOS Device">iPhone / iOS Device</option>
+                            <option value="Tablet / iPad">Tablet / iPad</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 mb-2">Brand</label>
+                        <select id="device-brand" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none">
+                            <option value="Samsung">Samsung</option>
+                            <option value="Xiaomi / Redmi / Poco">Xiaomi / Redmi / Poco</option>
+                            <option value="Realme">Realme</option>
+                            <option value="Vivo / Oppo">Vivo / Oppo</option>
+                            <option value="OnePlus">OnePlus</option>
+                            <option value="Apple">Apple</option>
+                            <option value="Other Brand">Other Brand</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-400 mb-2">Primary Issue</label>
+                        <select id="device-issue" class="w-full bg-gray-900 border border-gray-700 rounded-xl px-4 py-3 text-white focus:border-cyan-500 focus:outline-none">
+                            <option value="Display / Glass Replacement">Display / Glass Replacement</option>
+                            <option value="Battery Draining Fast / Dead Battery">Battery Draining / Dead Battery</option>
+                            <option value="Charging Port / Slow Charging">Charging Port Issue</option>
+                            <option value="Water / Liquid Damage">Water / Liquid Damage</option>
+                            <option value="Speaker / Microphone Problem">Speaker / Mic Problem</option>
+                            <option value="Motherboard / Power IC Fault">Motherboard / Power IC Fault</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Dynamic Output Box -->
+                <div class="bg-gray-950/80 rounded-xl p-5 border border-gray-800 space-y-3">
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-400">Estimated Service Time:</span>
+                        <span id="estimated-time" class="text-sm font-semibold text-amber-400">1 - 2 Hours (Same Day)</span>
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <span class="text-xs text-gray-400">Diagnostic Check:</span>
+                        <span class="text-sm font-semibold text-cyan-400">Free On-Shop Inspection</span>
+                    </div>
+                </div>
+
+                <button id="send-whatsapp-btn" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-4 rounded-xl shadow-lg shadow-emerald-900/40 flex items-center justify-center gap-2 transition-all">
+                    <i data-lucide="message-square" class="w-5 h-5"></i>
+                    <span>Inquire Best Price via WhatsApp (+91 8623904143)</span>
                 </button>
             </div>
         </div>
-    </header>
+    </section>
 
-    <main>
-        <section class="hero" id="home">
-            <div class="container">
-                <div class="hero-content reveal">
-                    <div class="hero-badge">
-                        <span>⭐ Gadhinglaj's Most Trusted Repair Shop</span>
+    <!-- About Shop / Owner Section -->
+    <section id="about" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="glass-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
+            <div class="space-y-4">
+                <span class="text-amber-400 text-xs font-semibold tracking-wider uppercase">Local Expertise You Can Trust</span>
+                <h2 class="text-3xl font-bold text-white">Meet Muzzafar at Mobile Care</h2>
+                <p class="text-gray-300 leading-relaxed">
+                    Located on MR Highschool Road in Kadgaon, Gadhinglaj, Mobile Care has earned a reputation for transparent service, high-grade parts, and precision micro-repair work.
+                </p>
+                <p class="text-gray-400 text-sm leading-relaxed">
+                    Whether you need a quick 30-minute battery swapped or detailed motherboard fault tracing, Muzzafar provides direct consultation without hidden fees.
+                </p>
+                <div class="pt-2 flex items-center gap-4 text-sm text-gray-300">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                        <span>Fair Pricing</span>
                     </div>
-                    <h1 class="hero-title">Expert Smartphone Repair & Original Accessories</h1>
-                    <p class="hero-subtitle">Shattered screen? Battery draining fast? We fix all major brands (iPhone, Samsung, OnePlus, Vivo, Oppo, Xiaomi) with genuine parts and warranty.</p>
-                    <div class="hero-buttons">
-                        <a href="#contact" class="btn btn-cyan">Get Free Repair Quote</a>
-                        <a href="tel:+919876543210" class="btn btn-outline">Call: +91 98765 43210</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="trust-bar">
-            <div class="container">
-                <div class="trust-grid">
-                    <div class="trust-item">
-                        <div class="trust-icon">⏱️</div>
-                        <span>30-Min Express Repair</span>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">🛡️</div>
-                        <span>Genuine Spare Parts</span>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">👨‍🔧</div>
-                        <span>Certified Technicians</span>
-                    </div>
-                    <div class="trust-item">
-                        <div class="trust-icon">⭐</div>
-                        <span>4.9 Star Google Rating</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="services" id="services">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Repair Services</span>
-                    <h2 class="section-title">What We Fix</h2>
-                    <p class="section-subtitle">Comprehensive diagnostic and repair solutions for all smartphones and tablets.</p>
-                </div>
-
-                <div class="services-grid">
-                    <div class="service-card reveal">
-                        <div>
-                            <div class="service-icon-wrap">📲</div>
-                            <h3 class="service-title">Screen Repair & Glass Replacement</h3>
-                            <p class="service-desc">Cracked touch glass or broken display panel? We replace original screens with clear warranty.</p>
-                        </div>
-                        <a href="#contact" class="service-link">Book Screen Fix &rarr;</a>
-                    </div>
-
-                    <div class="service-card reveal">
-                        <div>
-                            <div class="service-icon-wrap">🔋</div>
-                            <h3 class="service-title">Battery Replacement</h3>
-                            <p class="service-desc">Phone dying quickly or heating up? Get a fresh high-capacity OEM battery replacement instantly.</p>
-                        </div>
-                        <a href="#contact" class="service-link">Replace Battery &rarr;</a>
-                    </div>
-
-                    <div class="service-card reveal">
-                        <div>
-                            <div class="service-icon-wrap">🔌</div>
-                            <h3 class="service-title">Charging Port Fix</h3>
-                            <p class="service-desc">Loose charger pin or phone not charging? We repair and solder type-C and lightning ports.</p>
-                        </div>
-                        <a href="#contact" class="service-link">Fix Charging &rarr;</a>
-                    </div>
-
-                    <div class="service-card reveal">
-                        <div>
-                            <div class="service-icon-wrap">💻</div>
-                            <h3 class="service-title">Software & Flashing Fixes</h3>
-                            <p class="service-desc">Stuck on boot logo, forgotten screen lock, pattern unlock, virus cleanup, and OS upgrades.</p>
-                        </div>
-                        <a href="#contact" class="service-link">Fix Software &rarr;</a>
-                    </div>
-
-                    <div class="service-card reveal">
-                        <div>
-                            <div class="service-icon-wrap">💧</div>
-                            <h3 class="service-title">Water Damage Recovery</h3>
-                            <p class="service-desc">Accidental drop in water? Advanced ultrasonic cleaning and motherboard component repair.</p>
-                        </div>
-                        <a href="#contact" class="service-link">Restore Water Damage &rarr;</a>
-                    </div>
-
-                    <div class="service-card reveal">
-                        <div>
-                            <div class="service-icon-wrap">📶</div>
-                            <h3 class="service-title">Mobile Recharge & SIM Services</h3>
-                            <p class="service-desc">Instant online recharge for Jio, Airtel, Vi, and BSNL. Porting and new SIM activation available.</p>
-                        </div>
-                        <a href="#contact" class="service-link">Instant Recharge &rarr;</a>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="accessories" id="accessories">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Accessories Store</span>
-                    <h2 class="section-title">Original Mobile Accessories</h2>
-                    <p class="section-subtitle">Upgrade your mobile audio and charging experience with top branded accessories.</p>
-                </div>
-
-                <div class="accessories-grid">
-                    <div class="accessory-card reveal">
-                        <div class="accessory-img">
-                            <span class="accessory-tag">Bass Boost</span>
-                            <img src="https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?auto=format&fit=crop&w=600&q=80" alt="Bluetooth Wireless Speaker">
-                        </div>
-                        <div class="accessory-info">
-                            <div>
-                                <h3 class="accessory-name">Bluetooth Speakers</h3>
-                                <p class="accessory-desc">Portable wireless soundbars with deep bass and 10+ hours playback.</p>
-                            </div>
-                            <div class="accessory-action">
-                                <span class="accessory-badge">Top Brands</span>
-                                <a href="#contact" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Enquire</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accessory-card reveal">
-                        <div class="accessory-img">
-                            <span class="accessory-tag">Fast Charging</span>
-                            <img src="https://images.unsplash.com/photo-1583863788434-e58a36330cf0?auto=format&fit=crop&w=600&q=80" alt="USB Type-C Cables">
-                        </div>
-                        <div class="accessory-info">
-                            <div>
-                                <h3 class="accessory-name">Braided USB Cables</h3>
-                                <p class="accessory-desc">Durable Type-C, Micro-USB, and Lightning fast-charging data cables.</p>
-                            </div>
-                            <div class="accessory-action">
-                                <span class="accessory-badge">Extra Tough</span>
-                                <a href="#contact" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Enquire</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accessory-card reveal">
-                        <div class="accessory-img">
-                            <span class="accessory-tag">GaN Tech</span>
-                            <img src="https://images.unsplash.com/photo-1585338107529-13afc5f02586?auto=format&fit=crop&w=600&q=80" alt="Fast Wall Adapter Charger">
-                        </div>
-                        <div class="accessory-info">
-                            <div>
-                                <h3 class="accessory-name">Fast Wall Chargers</h3>
-                                <p class="accessory-desc">20W to 65W PD fast adapters for iPhone, Samsung, OnePlus & Androids.</p>
-                            </div>
-                            <div class="accessory-action">
-                                <span class="accessory-badge">Safe Power</span>
-                                <a href="#contact" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Enquire</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accessory-card reveal">
-                        <div class="accessory-img">
-                            <span class="accessory-tag">Hi-Fi Audio</span>
-                            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&w=600&q=80" alt="Over-Ear Headphones">
-                        </div>
-                        <div class="accessory-info">
-                            <div>
-                                <h3 class="accessory-name">Headphones & Earbuds</h3>
-                                <p class="accessory-desc">Noise cancelling TWS earbuds and comfortable over-ear headphones.</p>
-                            </div>
-                            <div class="accessory-action">
-                                <span class="accessory-badge">Crystal Clear</span>
-                                <a href="#contact" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Enquire</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accessory-card reveal">
-                        <div class="accessory-img">
-                            <span class="accessory-tag">9H Hardness</span>
-                            <img src="https://images.unsplash.com/photo-1601784551446-20c9e07cdbdb?auto=format&fit=crop&w=600&q=80" alt="Tempered Glass Screen Guard">
-                        </div>
-                        <div class="accessory-info">
-                            <div>
-                                <h3 class="accessory-name">Tempered Glass Guards</h3>
-                                <p class="accessory-desc">Edge-to-edge matte & HD glossy tempered glass protection.</p>
-                            </div>
-                            <div class="accessory-action">
-                                <span class="accessory-badge">Scratch Proof</span>
-                                <a href="#contact" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Enquire</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="accessory-card reveal">
-                        <div class="accessory-img">
-                            <span class="accessory-tag">Shockproof</span>
-                            <img src="https://images.unsplash.com/photo-1541877944-ac82a091518a?auto=format&fit=crop&w=600&q=80" alt="Back Covers and Phone Cases">
-                        </div>
-                        <div class="accessory-info">
-                            <div>
-                                <h3 class="accessory-name">Designer Back Covers</h3>
-                                <p class="accessory-desc">Stylish, rugged armor cases and slim silicone covers for all models.</p>
-                            </div>
-                            <div class="accessory-action">
-                                <span class="accessory-badge">Drop Tested</span>
-                                <a href="#contact" class="btn btn-primary" style="padding: 0.4rem 1rem; font-size: 0.85rem;">Enquire</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="how-it-works" id="how-it-works">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Simple Process</span>
-                    <h2 class="section-title">How It Works</h2>
-                    <p class="section-subtitle">Get your smartphone restored in 3 quick and hassle-free steps.</p>
-                </div>
-
-                <div class="steps-grid">
-                    <div class="step-card reveal">
-                        <div class="step-number">1</div>
-                        <h3 class="step-title">Bring or Call Us</h3>
-                        <p class="step-desc">Bring your damaged device to our Bhadgaon Road shop or fill out our free quote form online.</p>
-                    </div>
-
-                    <div class="step-card reveal">
-                        <div class="step-number">2</div>
-                        <h3 class="step-title">Free Diagnosis</h3>
-                        <p class="step-desc">Our certified technician inspects the fault and gives you an instant, accurate price estimate.</p>
-                    </div>
-
-                    <div class="step-card reveal">
-                        <div class="step-number">3</div>
-                        <h3 class="step-title">Express Repair</h3>
-                        <p class="step-desc">We repair your device using genuine spare parts within 30 to 60 minutes with warranty.</p>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="reviews" id="reviews">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Customer Reviews</span>
-                    <h2 class="section-title">What Local Customers Say</h2>
-                    <p class="section-subtitle">Real experiences shared by smartphone owners in Gadhinglaj.</p>
-                </div>
-
-                <div class="reviews-grid">
-                    <div class="review-card reveal">
-                        <div>
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-quote">"Replaced my cracked OnePlus display screen on Bhadgaon Road in just 40 minutes. Original clarity and touch response is perfect!"</p>
-                        </div>
-                        <div class="review-author">
-                            <div class="author-avatar">R</div>
-                            <div class="author-info">
-                                <h5>Rohan Patil</h5>
-                                <p>Gadhinglaj Resident</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="review-card reveal">
-                        <div>
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-quote">"Very reasonable pricing for battery replacement and charging port solder. Honest service and polite behavior."</p>
-                        </div>
-                        <div class="review-author">
-                            <div class="author-avatar">S</div>
-                            <div class="author-info">
-                                <h5>Sagar Kamble</h5>
-                                <p>Local Customer</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="review-card reveal">
-                        <div>
-                            <div class="review-stars">★★★★★</div>
-                            <p class="review-quote">"Got an original Type-C fast charger and Bluetooth speaker. Sound quality is awesome and prices are lower than online!"</p>
-                        </div>
-                        <div class="review-author">
-                            <div class="author-avatar">A</div>
-                            <div class="author-info">
-                                <h5>Amit Deshmukh</h5>
-                                <p>Sankeshwar Road</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="visit" id="visit">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Store Location</span>
-                    <h2 class="section-title">Visit Mobile Care</h2>
-                    <p class="section-subtitle">Drop by our shop for quick diagnoses, screen protectors, or accessory shopping.</p>
-                </div>
-
-                <div class="visit-grid">
-                    <div class="visit-info-card reveal">
-                        <div>
-                            <div class="visit-detail-item">
-                                <div class="icon-box">📍</div>
-                                <div>
-                                    <h5>Shop Address</h5>
-                                    <p>Bhadgaon Road, Gadhinglaj, Maharashtra 416502</p>
-                                </div>
-                            </div>
-
-                            <div class="visit-detail-item">
-                                <div class="icon-box">📞</div>
-                                <div>
-                                    <h5>Call / WhatsApp</h5>
-                                    <p>+91 98765 43210</p>
-                                </div>
-                            </div>
-
-                            <div class="visit-detail-item">
-                                <div class="icon-box">⏰</div>
-                                <div>
-                                    <h5>Working Hours</h5>
-                                    <p>Monday to Sunday<br>9:00 AM – 8:30 PM</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <a href="https://maps.app.goo.gl/GrhScxcYuoFLnKX8A" target="_blank" rel="noopener" class="btn btn-primary" style="width: 100%;">
-                                📍 Get Directions on Google Maps
-                            </a>
-                        </div>
-                    </div>
-
-                    <div class="map-container reveal">
-                        <iframe 
-                            title="Mobile Care Bhadgaon Road Gadhinglaj Map Location" 
-                            src="https://maps.google.com/maps?q=Mobile%20Care%20Bhadgaon%20Road%20Gadhinglaj%20Maharashtra&t=&z=16&ie=UTF8&iwloc=&output=embed" 
-                            allowfullscreen="" 
-                            loading="lazy">
-                        </iframe>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="quote" id="contact">
-            <div class="container">
-                <div class="section-header reveal">
-                    <span class="section-tag">Instant Inquiry</span>
-                    <h2 class="section-title">Get a Free Repair Quote</h2>
-                    <p class="section-subtitle">Tell us your smartphone model and problem to receive an immediate cost estimate on WhatsApp.</p>
-                </div>
-
-                <div class="quote-wrapper reveal">
-                    <form id="quote-form">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="name" class="form-label">Full Name *</label>
-                                <input type="text" id="name" class="form-control" placeholder="e.g. Rahul Patil" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="phone" class="form-label">Phone Number *</label>
-                                <input type="tel" id="phone" class="form-control" placeholder="e.g. 9876543210" required>
-                            </div>
-                        </div>
-
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label for="mobile-model" class="form-label">Mobile Brand & Model *</label>
-                                <input type="text" id="mobile-model" class="form-control" placeholder="e.g. Redmi Note 10 / iPhone 12" required>
-                            </div>
-                            <div class="form-group">
-                                <label for="service-needed" class="form-label">Service / Issue</label>
-                                <select id="service-needed" class="form-control">
-                                    <option value="Screen Replacement">Screen / Touch Replacement</option>
-                                    <option value="Battery Replacement">Battery Change</option>
-                                    <option value="Charging Issue">Charging Port Fix</option>
-                                    <option value="Software Issue">Software / Password Unlock</option>
-                                    <option value="Water Damage">Water Damage Repair</option>
-                                    <option value="Accessories">Accessories Enquiry</option>
-                                    <option value="Other">Other Issue</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="message" class="form-label">Problem Description (Optional)</label>
-                            <textarea id="message" class="form-control" placeholder="Describe the issue or ask about accessory stock..."></textarea>
-                        </div>
-
-                        <button type="submit" class="form-submit-btn">Send Enquiry via WhatsApp 💬</button>
-                    </form>
-
-                    <div class="form-success-msg" id="form-success">
-                        ✓ Redirecting your query to Mobile Care WhatsApp...
-                    </div>
-                </div>
-            </div>
-        </section>
-    </main>
-
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col">
-                    <a href="#" class="logo" style="color: var(--white); margin-bottom: 1rem; display: inline-flex;">
-                        <div class="logo-icon" style="width: 32px; height: 32px; font-size: 1rem;">📱</div>
-                        Mobile <span style="color: var(--cyan);">Care</span>
-                    </a>
-                    <p>Gadhinglaj's premier smartphone repair and accessory destination. Fast, reliable, and affordable repair service with genuine parts.</p>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <ul class="footer-links">
-                        <li><a href="#home">Home</a></li>
-                        <li><a href="#services">Repair Services</a></li>
-                        <li><a href="#accessories">Accessories</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
-                        <li><a href="#reviews">Reviews</a></li>
-                        <li><a href="#contact">Free Quote</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Top Repairs</h4>
-                    <ul class="footer-links">
-                        <li><a href="#services">Screen Replacement</a></li>
-                        <li><a href="#services">Battery Replacement</a></li>
-                        <li><a href="#services">Charging Port Repair</a></li>
-                        <li><a href="#services">Software Flashing</a></li>
-                        <li><a href="#services">Water Damage Recovery</a></li>
-                    </ul>
-                </div>
-
-                <div class="footer-col">
-                    <h4>Shop Details</h4>
-                    <div class="footer-contact-item">
-                        <span>📍</span>
-                        <span>Bhadgaon Road, Gadhinglaj, Maharashtra 416502</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <span>📞</span>
-                        <span>+91 98765 43210</span>
-                    </div>
-                    <div class="footer-contact-item">
-                        <span>⏰</span>
-                        <span>Mon - Sun: 9:00 AM – 8:30 PM</span>
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="check-circle" class="w-4 h-4 text-emerald-400"></i>
+                        <span>Genuine Components</span>
                     </div>
                 </div>
             </div>
 
-            <div class="footer-bottom">
-                <div>© 2026 Mobile Care Gadhinglaj. All rights reserved.</div>
-                <div>Designed for Local Retail Excellence</div>
+            <div class="bg-gray-900 rounded-xl p-6 border border-gray-800 space-y-4">
+                <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-3 flex items-center gap-2">
+                    <i data-lucide="clock" class="w-5 h-5 text-cyan-400"></i> Working Hours & Contact
+                </h3>
+                <div class="space-y-2 text-sm text-gray-300">
+                    <div class="flex justify-between py-1 border-b border-gray-800/50">
+                        <span>Monday - Saturday:</span>
+                        <span class="font-semibold text-white">9:30 AM - 9:00 PM</span>
+                    </div>
+                    <div class="flex justify-between py-1 border-b border-gray-800/50">
+                        <span>Sunday:</span>
+                        <span class="font-semibold text-amber-400">10:00 AM - 6:00 PM</span>
+                    </div>
+                    <div class="flex justify-between py-1">
+                        <span>Direct Call / WhatsApp:</span>
+                        <a href="tel:+918623904143" class="font-semibold text-cyan-400 hover:underline">+91 8623904143</a>
+                    </div>
+                </div>
             </div>
+        </div>
+    </section>
+
+    <!-- Location & Google Maps Integration -->
+    <section id="location" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <h2 class="text-3xl font-bold text-white">Visit Our Shop in Gadhinglaj</h2>
+            <p class="text-gray-400 mt-2">MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</p>
+        </div>
+
+        <div class="glass-card rounded-2xl p-4 sm:p-6 space-y-4">
+            <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-900 p-4 rounded-xl border border-gray-800">
+                <div class="flex items-center gap-3">
+                    <i data-lucide="navigation" class="w-6 h-6 text-amber-400 shrink-0"></i>
+                    <div>
+                        <div class="font-bold text-white">Mobile Care (Owner: Muzzafar)</div>
+                        <div class="text-xs text-gray-400">MR Highschool Road, Kadgaon, Gadhinglaj</div>
+                    </div>
+                </div>
+                <a href="https://maps.google.com/?q=Mobile+Care+MR+Highschool+Road+Kadgaon+Gadhinglaj+Maharashtra+416502" 
+                   target="_blank" 
+                   class="bg-cyan-600 hover:bg-cyan-500 text-white text-sm font-semibold px-5 py-2.5 rounded-xl flex items-center gap-2 transition-all">
+                    <i data-lucide="external-link" class="w-4 h-4"></i>
+                    <span>Open Direct Location in Google Maps</span>
+                </a>
+            </div>
+
+            <!-- Embedded Google Map -->
+            <div class="w-full h-[380px] rounded-xl overflow-hidden border border-gray-800 bg-gray-900">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7661.964328067434!2d74.34333769093595!3d16.221356637921335!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bc08d2d55a3531f%3A0xa789a9e1d6347162!2sMobile%20Care!5e0!3m2!1sen!2sin!4v1791812866980!5m2!1sen!2sin" 
+                    width="100%" 
+                    height="100%" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-gray-800 py-10 bg-gray-950 text-xs text-gray-400 text-center">
+        <div class="max-w-7xl mx-auto px-4 space-y-3">
+            <p class="font-semibold text-gray-300">Mobile Care &bull; Gadhinglaj</p>
+            <p>MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502 | Phone: +91 8623904143</p>
+            <p class="text-gray-600">&copy; <span id="current-year"></span> Mobile Care. All Rights Reserved.</p>
         </div>
     </footer>
 
-    <button class="back-to-top" id="backToTop" aria-label="Back to top">↑</button>
-    <a href="https://wa.me/919876543210?text=Hello%20Mobile%20Care,%20I%20have%20an%20enquiry%20regarding%20mobile%20repair" target="_blank" rel="noopener" class="floating-whatsapp" aria-label="Chat on WhatsApp">💬</a>
+    <!-- Mobile Sticky Quick Action Bar -->
+    <div class="fixed bottom-0 left-0 right-0 z-50 bg-brand-dark/95 border-t border-gray-800 p-3 md:hidden backdrop-blur-lg grid grid-cols-2 gap-3">
+        <a href="tel:+918623904143" class="bg-gray-800 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 border border-gray-700 text-sm">
+            <i data-lucide="phone" class="w-4 h-4 text-amber-400"></i>
+            <span>Call Now</span>
+        </a>
+        <a href="https://wa.me/918623904143?text=Hi%20Muzzafar,%20I%20want%20to%20inquire%20about%20mobile%20repair." 
+           target="_blank" 
+           class="bg-emerald-600 text-white py-3 rounded-xl font-bold flex items-center justify-center gap-2 text-sm shadow-lg shadow-emerald-950">
+            <i data-lucide="message-circle" class="w-4 h-4"></i>
+            <span>WhatsApp</span>
+        </a>
+    </div>
 
+    <!-- JavaScript Scripts -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const header = document.getElementById('header');
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('nav-menu');
-            const mobileOverlay = document.getElementById('mobile-overlay');
-            const backToTopBtn = document.getElementById('backToTop');
-            const quoteForm = document.getElementById('quote-form');
-            const formSuccess = document.getElementById('form-success');
+        // Initialize Lucide Icons
+        lucide.createIcons();
+        document.getElementById('current-year').textContent = new Date().getFullYear();
 
-            function toggleMenu() {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-                mobileOverlay.classList.toggle('active');
-                document.body.style.overflow = navMenu.classList.contains('active') ? 'hidden' : '';
+        // Dynamic WhatsApp Inquiry Link Handler
+        const deviceType = document.getElementById('device-type');
+        const deviceBrand = document.getElementById('device-brand');
+        const deviceIssue = document.getElementById('device-issue');
+        const estTime = document.getElementById('estimated-time');
+        const whatsappBtn = document.getElementById('send-whatsapp-btn');
+
+        function updateInquiry() {
+            const issueVal = deviceIssue.value;
+            if (issueVal.includes('Motherboard') || issueVal.includes('Water')) {
+                estTime.textContent = "Same Day to 24 Hours (Requires Diagnostics)";
+            } else {
+                estTime.textContent = "1 - 2 Hours (Same Day Fast Service)";
             }
 
-            hamburger.addEventListener('click', toggleMenu);
-            mobileOverlay.addEventListener('click', toggleMenu);
+            const message = `Hi Muzzafar, I would like a price quote for my device:\n- Category: ${deviceType.value}\n- Brand: ${deviceBrand.value}\n- Issue: ${deviceIssue.value}\nLocation: Mobile Care, Gadhinglaj.`;
+            whatsappBtn.onclick = function() {
+                window.open(`https://wa.me/918623904143?text=${encodeURIComponent(message)}`, '_blank');
+            };
+        }
 
-            document.querySelectorAll('.nav-link').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navMenu.classList.contains('active')) {
-                        toggleMenu();
-                    }
-                });
+        deviceType.addEventListener('change', updateInquiry);
+        deviceBrand.addEventListener('change', updateInquiry);
+        deviceIssue.addEventListener('change', updateInquiry);
+        updateInquiry();
+
+        // Three.js 3D Interactive Tech Phone Canvas Effect
+        (function initThreeJS() {
+            const container = document.getElementById('webgl-container');
+            if (!container || !window.Three) return;
+
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+            camera.position.z = 12;
+
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+            container.appendChild(renderer.domElement);
+
+            // Smartphone Group
+            const phoneGroup = new THREE.Group();
+
+            // Phone Body Glass
+            const bodyGeo = new THREE.BoxGeometry(3.6, 7.2, 0.3);
+            const bodyMat = new THREE.MeshPhongMaterial({
+                color: 0x0b1329,
+                emissive: 0x06283d,
+                specular: 0x06b6d4,
+                shininess: 100,
+                transparent: true,
+                opacity: 0.85
             });
+            const phoneBody = new THREE.Mesh(bodyGeo, bodyMat);
+            phoneGroup.add(phoneBody);
 
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 40) {
-                    header.classList.add('scrolled');
-                } else {
-                    header.classList.remove('scrolled');
+            // Screen Frame Outline
+            const edgesGeo = new THREE.EdgesGeometry(bodyGeo);
+            const edgesMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, linewidth: 2 });
+            const wireframe = new THREE.LineSegments(edgesGeo, edgesMat);
+            phoneGroup.add(wireframe);
+
+            // Inner Circuit Node Rings
+            const ringGeo = new THREE.RingGeometry(0.4, 0.6, 32);
+            const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+            ringMesh.position.z = 0.16;
+            phoneGroup.add(ringMesh);
+
+            scene.add(phoneGroup);
+
+            // Ambient & Point Lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+            scene.add(ambientLight);
+
+            const pointLight = new THREE.PointLight(0x06b6d4, 2, 50);
+            pointLight.position.set(5, 5, 5);
+            scene.add(pointLight);
+
+            const amberLight = new THREE.PointLight(0xf59e0b, 1.5, 50);
+            amberLight.position.set(-5, -5, 5);
+            scene.add(amberLight);
+
+            // Interactive Drag/Mouse Movement
+            let isDragging = false;
+            let previousMousePosition = { x: 0, y: 0 };
+
+            container.addEventListener('mousedown', (e) => { isDragging = true; });
+            container.addEventListener('mousemove', (e) => {
+                const deltaMove = { x: e.offsetX - previousMousePosition.x, y: e.offsetY - previousMousePosition.y };
+                if (isDragging) {
+                    phoneGroup.rotation.y += deltaMove.x * 0.01;
+                    phoneGroup.rotation.x += deltaMove.y * 0.01;
                 }
+                previousMousePosition = { x: e.offsetX, y: e.offsetY };
+            });
+            window.addEventListener('mouseup', () => { isDragging = false; });
 
-                if (window.scrollY > 400) {
-                    backToTopBtn.classList.add('visible');
-                } else {
-                    backToTopBtn.classList.remove('visible');
+            // Touch events for mobile drag
+            container.addEventListener('touchstart', (e) => {
+                if (e.touches.length === 1) {
+                    isDragging = true;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
                 }
             });
-
-            backToTopBtn.addEventListener('click', () => {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+            container.addEventListener('touchmove', (e) => {
+                if (isDragging && e.touches.length === 1) {
+                    const deltaMove = {
+                        x: e.touches[0].clientX - previousMousePosition.x,
+                        y: e.touches[0].clientY - previousMousePosition.y
+                    };
+                    phoneGroup.rotation.y += deltaMove.x * 0.01;
+                    phoneGroup.rotation.x += deltaMove.y * 0.01;
+                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                }
             });
+            window.addEventListener('touchend', () => { isDragging = false; });
 
-            const revealElements = document.querySelectorAll('.reveal');
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('active');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, {
-                threshold: 0.1,
-                rootMargin: '0px 0px -40px 0px'
-            });
-
-            revealElements.forEach(el => revealObserver.observe(el));
-
-            if (quoteForm) {
-                quoteForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    
-                    const name = document.getElementById('name').value.trim();
-                    const phone = document.getElementById('phone').value.trim();
-                    const model = document.getElementById('mobile-model').value.trim();
-                    const serviceSelect = document.getElementById('service-needed');
-                    const serviceText = serviceSelect.options[serviceSelect.selectedIndex].text;
-                    const message = document.getElementById('message').value.trim();
-
-                    const waMessage = `Hello Mobile Care,%0A%0A*New Website Repair Enquiry*%0A*Name:* ${encodeURIComponent(name)}%0A*Phone:* ${encodeURIComponent(phone)}%0A*Device Model:* ${encodeURIComponent(model)}%0A*Service:* ${encodeURIComponent(serviceText)}%0A*Issue Details:* ${encodeURIComponent(message || 'N/A')}`;
-
-                    formSuccess.style.display = 'block';
-
-                    setTimeout(() => {
-                        window.open(`https://wa.me/919876543210?text=${waMessage}`, '_blank');
-                        quoteForm.reset();
-                        formSuccess.style.display = 'none';
-                    }, 1000);
-                });
+            // Animation Loop
+            function animate() {
+                requestAnimationFrame(animate);
+                if (!isDragging) {
+                    phoneGroup.rotation.y += 0.005;
+                    phoneGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.15;
+                }
+                ringMesh.rotation.z += 0.02;
+                renderer.render(scene, camera);
             }
-        });
+            animate();
+
+            // Resize handling
+            window.addEventListener('resize', () => {
+                camera.aspect = container.clientWidth / container.clientHeight;
+                camera.updateProjectionMatrix();
+                renderer.setSize(container.clientWidth, container.clientHeight);
+            });
+        })();
     </script>
 </body>
 </html>
