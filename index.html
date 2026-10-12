@@ -8,7 +8,6 @@
     <meta name="referrer" content="no-referrer-when-downgrade">
     
     <!-- Tailwind CSS CDN -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
@@ -147,11 +146,23 @@
                 </div>
             </div>
 
-            <!-- 3D WebGL Canvas Container -->
-            <div class="relative h-[340px] sm:h-[420px] w-full rounded-2xl glass-card overflow-hidden flex items-center justify-center shadow-2xl">
+            <!-- 3D WebGL Canvas Container with Automatic Fallback -->
+            <div class="relative h-[360px] sm:h-[420px] w-full rounded-2xl glass-card overflow-hidden flex items-center justify-center shadow-2xl border border-cyan-500/20">
                 <div id="webgl-container" class="absolute inset-0 w-full h-full"></div>
-                <div class="absolute bottom-4 left-4 right-4 text-center pointer-events-none">
-                    <span class="inline-block px-3 py-1 bg-gray-900/80 backdrop-blur border border-gray-700 rounded-full text-[11px] text-gray-400">
+                
+                <!-- Fallback Graphic (Shows instantly if WebGL is slow or blocked) -->
+                <div id="fallback-graphic" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-brand-dark/40 to-brand-dark p-6 text-center transition-opacity duration-500">
+                    <div class="relative w-28 h-52 rounded-3xl border-2 border-cyan-400/60 bg-gray-900/90 shadow-[0_0_30px_rgba(6,182,212,0.25)] flex flex-col items-center justify-between p-3 animate-pulse">
+                        <div class="w-10 h-1.5 bg-gray-700 rounded-full"></div>
+                        <div class="w-12 h-12 rounded-full border border-amber-400/60 flex items-center justify-center">
+                            <i data-lucide="cpu" class="w-6 h-6 text-amber-400"></i>
+                        </div>
+                        <div class="text-[10px] text-cyan-300 font-mono tracking-wider">MOBILE CARE</div>
+                    </div>
+                </div>
+
+                <div class="absolute bottom-4 left-4 right-4 text-center pointer-events-none z-10">
+                    <span class="inline-block px-3 py-1 bg-gray-900/90 backdrop-blur border border-gray-700 rounded-full text-[11px] text-gray-400">
                         Interactive 3D Tech Inspection (Drag to rotate)
                     </span>
                 </div>
@@ -411,113 +422,123 @@
         // Three.js 3D Interactive Tech Phone Canvas Effect
         (function initThreeJS() {
             const container = document.getElementById('webgl-container');
-            if (!container || !window.Three) return;
+            const fallback = document.getElementById('fallback-graphic');
+            if (!container || typeof THREE === 'undefined') return;
 
-            const scene = new THREE.Scene();
-            const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-            camera.position.z = 12;
+            try {
+                const scene = new THREE.Scene();
+                const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
+                camera.position.z = 12;
 
-            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-            renderer.setSize(container.clientWidth, container.clientHeight);
-            renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-            container.appendChild(renderer.domElement);
-
-            // Smartphone Group
-            const phoneGroup = new THREE.Group();
-
-            // Phone Body Glass
-            const bodyGeo = new THREE.BoxGeometry(3.6, 7.2, 0.3);
-            const bodyMat = new THREE.MeshPhongMaterial({
-                color: 0x0b1329,
-                emissive: 0x06283d,
-                specular: 0x06b6d4,
-                shininess: 100,
-                transparent: true,
-                opacity: 0.85
-            });
-            const phoneBody = new THREE.Mesh(bodyGeo, bodyMat);
-            phoneGroup.add(phoneBody);
-
-            // Screen Frame Outline
-            const edgesGeo = new THREE.EdgesGeometry(bodyGeo);
-            const edgesMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, linewidth: 2 });
-            const wireframe = new THREE.LineSegments(edgesGeo, edgesMat);
-            phoneGroup.add(wireframe);
-
-            // Inner Circuit Node Rings
-            const ringGeo = new THREE.RingGeometry(0.4, 0.6, 32);
-            const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
-            const ringMesh = new THREE.Mesh(ringGeo, ringMat);
-            ringMesh.position.z = 0.16;
-            phoneGroup.add(ringMesh);
-
-            scene.add(phoneGroup);
-
-            // Ambient & Point Lighting
-            const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
-            scene.add(ambientLight);
-
-            const pointLight = new THREE.PointLight(0x06b6d4, 2, 50);
-            pointLight.position.set(5, 5, 5);
-            scene.add(pointLight);
-
-            const amberLight = new THREE.PointLight(0xf59e0b, 1.5, 50);
-            amberLight.position.set(-5, -5, 5);
-            scene.add(amberLight);
-
-            // Interactive Drag/Mouse Movement
-            let isDragging = false;
-            let previousMousePosition = { x: 0, y: 0 };
-
-            container.addEventListener('mousedown', (e) => { isDragging = true; });
-            container.addEventListener('mousemove', (e) => {
-                const deltaMove = { x: e.offsetX - previousMousePosition.x, y: e.offsetY - previousMousePosition.y };
-                if (isDragging) {
-                    phoneGroup.rotation.y += deltaMove.x * 0.01;
-                    phoneGroup.rotation.x += deltaMove.y * 0.01;
-                }
-                previousMousePosition = { x: e.offsetX, y: e.offsetY };
-            });
-            window.addEventListener('mouseup', () => { isDragging = false; });
-
-            // Touch events for mobile drag
-            container.addEventListener('touchstart', (e) => {
-                if (e.touches.length === 1) {
-                    isDragging = true;
-                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-                }
-            });
-            container.addEventListener('touchmove', (e) => {
-                if (isDragging && e.touches.length === 1) {
-                    const deltaMove = {
-                        x: e.touches[0].clientX - previousMousePosition.x,
-                        y: e.touches[0].clientY - previousMousePosition.y
-                    };
-                    phoneGroup.rotation.y += deltaMove.x * 0.01;
-                    phoneGroup.rotation.x += deltaMove.y * 0.01;
-                    previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
-                }
-            });
-            window.addEventListener('touchend', () => { isDragging = false; });
-
-            // Animation Loop
-            function animate() {
-                requestAnimationFrame(animate);
-                if (!isDragging) {
-                    phoneGroup.rotation.y += 0.005;
-                    phoneGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.15;
-                }
-                ringMesh.rotation.z += 0.02;
-                renderer.render(scene, camera);
-            }
-            animate();
-
-            // Resize handling
-            window.addEventListener('resize', () => {
-                camera.aspect = container.clientWidth / container.clientHeight;
-                camera.updateProjectionMatrix();
+                const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
                 renderer.setSize(container.clientWidth, container.clientHeight);
-            });
+                renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+                container.appendChild(renderer.domElement);
+
+                // Hide fallback graphic once Three.js canvas mounts
+                if (fallback) fallback.style.opacity = '0';
+                setTimeout(() => { if (fallback) fallback.remove(); }, 500);
+
+                // Smartphone Group
+                const phoneGroup = new THREE.Group();
+
+                // Phone Body Glass
+                const bodyGeo = new THREE.BoxGeometry(3.6, 7.2, 0.3);
+                const bodyMat = new THREE.MeshPhongMaterial({
+                    color: 0x0b1329,
+                    emissive: 0x06283d,
+                    specular: 0x06b6d4,
+                    shininess: 100,
+                    transparent: true,
+                    opacity: 0.85
+                });
+                const phoneBody = new THREE.Mesh(bodyGeo, bodyMat);
+                phoneGroup.add(phoneBody);
+
+                // Screen Frame Outline
+                const edgesGeo = new THREE.EdgesGeometry(bodyGeo);
+                const edgesMat = new THREE.LineBasicMaterial({ color: 0x06b6d4, linewidth: 2 });
+                const wireframe = new THREE.LineSegments(edgesGeo, edgesMat);
+                phoneGroup.add(wireframe);
+
+                // Inner Circuit Node Rings
+                const ringGeo = new THREE.RingGeometry(0.4, 0.6, 32);
+                const ringMat = new THREE.MeshBasicMaterial({ color: 0xf59e0b, side: THREE.DoubleSide, transparent: true, opacity: 0.8 });
+                const ringMesh = new THREE.Mesh(ringGeo, ringMat);
+                ringMesh.position.z = 0.16;
+                phoneGroup.add(ringMesh);
+
+                scene.add(phoneGroup);
+
+                // Ambient & Point Lighting
+                const ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+                scene.add(ambientLight);
+
+                const pointLight = new THREE.PointLight(0x06b6d4, 2, 50);
+                pointLight.position.set(5, 5, 5);
+                scene.add(pointLight);
+
+                const amberLight = new THREE.PointLight(0xf59e0b, 1.5, 50);
+                amberLight.position.set(-5, -5, 5);
+                scene.add(amberLight);
+
+                // Interactive Drag/Mouse Movement
+                let isDragging = false;
+                let previousMousePosition = { x: 0, y: 0 };
+
+                container.addEventListener('mousedown', () => { isDragging = true; });
+                container.addEventListener('mousemove', (e) => {
+                    const deltaMove = { x: e.offsetX - previousMousePosition.x, y: e.offsetY - previousMousePosition.y };
+                    if (isDragging) {
+                        phoneGroup.rotation.y += deltaMove.x * 0.01;
+                        phoneGroup.rotation.x += deltaMove.y * 0.01;
+                    }
+                    previousMousePosition = { x: e.offsetX, y: e.offsetY };
+                });
+                window.addEventListener('mouseup', () => { isDragging = false; });
+
+                // Touch events for mobile drag
+                container.addEventListener('touchstart', (e) => {
+                    if (e.touches.length === 1) {
+                        isDragging = true;
+                        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    }
+                });
+                container.addEventListener('touchmove', (e) => {
+                    if (isDragging && e.touches.length === 1) {
+                        const deltaMove = {
+                            x: e.touches[0].clientX - previousMousePosition.x,
+                            y: e.touches[0].clientY - previousMousePosition.y
+                        };
+                        phoneGroup.rotation.y += deltaMove.x * 0.01;
+                        phoneGroup.rotation.x += deltaMove.y * 0.01;
+                        previousMousePosition = { x: e.touches[0].clientX, y: e.touches[0].clientY };
+                    }
+                });
+                window.addEventListener('touchend', () => { isDragging = false; });
+
+                // Animation Loop
+                function animate() {
+                    requestAnimationFrame(animate);
+                    if (!isDragging) {
+                        phoneGroup.rotation.y += 0.005;
+                        phoneGroup.rotation.x = Math.sin(Date.now() * 0.001) * 0.15;
+                    }
+                    ringMesh.rotation.z += 0.02;
+                    renderer.render(scene, camera);
+                }
+                animate();
+
+                // Resize handling
+                window.addEventListener('resize', () => {
+                    if (!container) return;
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                });
+            } catch (err) {
+                console.error("WebGL initialization error:", err);
+            }
         })();
     </script>
 </body>
