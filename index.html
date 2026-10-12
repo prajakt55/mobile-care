@@ -28,33 +28,52 @@
         }
     </script>
     
-    <!-- Lucide Icons & Three.js -->
+    <!-- Lucide Icons, Three.js, Lenis & GSAP CDN -->
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.29/bundled/lenis.min.js"></script>
 
     <style>
         body {
             background-color: #0b0f19;
             color: #f3f4f6;
             font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
         }
         .glass-card {
             background: rgba(17, 24, 39, 0.7);
             backdrop-filter: blur(12px);
             border: 1px solid rgba(255, 255, 255, 0.08);
+            will-change: transform, opacity;
         }
         .glass-card-hover:hover {
             border-color: rgba(6, 182, 212, 0.4);
-            box-shadow: 0 0 20px rgba(6, 182, 212, 0.15);
+            box-shadow: 0 0 25px rgba(6, 182, 212, 0.2);
         }
         #webgl-container canvas {
             display: block;
             width: 100% !important;
             height: 100% !important;
         }
+        /* Scroll Progress Bar */
+        #scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            width: 0%;
+            background: linear-gradient(to right, #06b6d4, #f59e0b);
+            z-index: 100;
+            will-change: width;
+        }
     </style>
 </head>
 <body class="bg-brand-dark text-gray-100 min-h-screen pb-20 md:pb-0">
+
+    <!-- Scroll Progress Bar -->
+    <div id="scroll-progress"></div>
 
     <!-- Top Announcement Bar -->
     <div class="bg-gradient-to-r from-cyan-900 via-gray-900 to-amber-950 text-xs md:text-sm py-2 px-4 text-center border-b border-gray-800 flex items-center justify-center gap-2">
@@ -103,22 +122,22 @@
     <section class="relative overflow-hidden pt-8 pb-16 md:py-24 border-b border-gray-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-12 items-center">
             
-            <div class="z-10 space-y-6 text-center md:text-left">
+            <div class="z-10 space-y-6 text-center md:text-left hero-text-col">
                 <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-800/50 text-cyan-300 text-xs font-semibold">
                     <i data-lucide="shield-check" class="w-4 h-4 text-cyan-400"></i>
                     Gadhinglaj's Trusted Mobile Repair Center
                 </div>
 
-                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight hero-headline">
                     Fast, Reliable & <br class="hidden sm:inline">
                     <span class="bg-gradient-to-r from-cyan-400 via-teal-300 to-amber-400 bg-clip-text text-transparent">Professional Repair</span>
                 </h1>
 
-                <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0">
+                <p class="text-gray-400 text-base sm:text-lg max-w-xl mx-auto md:mx-0 hero-sub">
                     From broken displays and battery replacements to complex IC motherboard diagnostics, owner <strong class="text-gray-200">Muzzafar</strong> ensures quick turnaround with genuine parts.
                 </p>
 
-                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2">
+                <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-2 hero-btns">
                     <a href="#quote" class="bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-semibold px-6 py-3.5 rounded-xl shadow-lg shadow-cyan-500/25 flex items-center justify-center gap-2 transition-all hover:scale-[1.02]">
                         <i data-lucide="wrench" class="w-5 h-5"></i>
                         <span>Service Inquiry Tool</span>
@@ -130,7 +149,7 @@
                 </div>
 
                 <!-- Feature Badges -->
-                <div class="grid grid-cols-3 gap-3 pt-6 border-t border-gray-800/80 text-left">
+                <div class="grid grid-cols-3 gap-3 pt-6 border-t border-gray-800/80 text-left hero-badges">
                     <div>
                         <div class="text-amber-400 font-bold text-lg">Same-Day</div>
                         <div class="text-xs text-gray-400">Quick Fixes</div>
@@ -146,11 +165,11 @@
                 </div>
             </div>
 
-            <!-- 3D WebGL Canvas Container with Automatic Fallback -->
-            <div class="relative h-[360px] sm:h-[420px] w-full rounded-2xl glass-card overflow-hidden flex items-center justify-center shadow-2xl border border-cyan-500/20">
+            <!-- 3D WebGL Canvas Container with Fallback -->
+            <div id="hero-3d-wrapper" class="relative h-[360px] sm:h-[420px] w-full rounded-2xl glass-card overflow-hidden flex items-center justify-center shadow-2xl border border-cyan-500/20">
                 <div id="webgl-container" class="absolute inset-0 w-full h-full"></div>
                 
-                <!-- Fallback Graphic (Shows instantly if WebGL is slow or blocked) -->
+                <!-- Fallback Graphic -->
                 <div id="fallback-graphic" class="absolute inset-0 flex flex-col items-center justify-center bg-gradient-to-b from-brand-dark/40 to-brand-dark p-6 text-center transition-opacity duration-500">
                     <div class="relative w-28 h-52 rounded-3xl border-2 border-cyan-400/60 bg-gray-900/90 shadow-[0_0_30px_rgba(6,182,212,0.25)] flex flex-col items-center justify-between p-3 animate-pulse">
                         <div class="w-10 h-1.5 bg-gray-700 rounded-full"></div>
@@ -173,12 +192,12 @@
 
     <!-- Services Section -->
     <section id="services" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-12">
+        <div class="text-center max-w-2xl mx-auto mb-12 services-header">
             <h2 class="text-3xl font-bold text-white">Our Specialized Services</h2>
             <p class="text-gray-400 mt-2">Comprehensive repair solutions for all Android smartphones and iPhones in Gadhinglaj.</p>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6 services-grid">
             <div class="glass-card p-6 rounded-2xl glass-card-hover transition-all space-y-4">
                 <div class="w-12 h-12 rounded-xl bg-cyan-950/80 border border-cyan-800 flex items-center justify-center text-cyan-400">
                     <i data-lucide="smartphone" class="w-6 h-6"></i>
@@ -216,13 +235,13 @@
     <!-- Interactive Price-Free Service Inquiry Tool -->
     <section id="quote" class="py-16 bg-gray-900/50 border-y border-gray-800">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-10">
+            <div class="text-center mb-10 quote-header">
                 <span class="text-cyan-400 text-xs font-semibold tracking-wider uppercase">Direct WhatsApp Estimate</span>
                 <h2 class="text-3xl font-bold text-white mt-1">Select Your Service Need</h2>
                 <p class="text-gray-400 text-sm mt-2">Get an instant turnaround estimate and send your query straight to Muzzafar on WhatsApp.</p>
             </div>
 
-            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6">
+            <div class="glass-card p-6 sm:p-8 rounded-2xl space-y-6 quote-form-card">
                 <div class="grid sm:grid-cols-3 gap-4">
                     <div>
                         <label class="block text-xs font-semibold text-gray-400 mb-2">Device Category</label>
@@ -281,8 +300,8 @@
 
     <!-- About Shop / Owner Section -->
     <section id="about" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="glass-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center">
-            <div class="space-y-4">
+        <div class="glass-card rounded-2xl p-8 md:p-12 grid md:grid-cols-2 gap-8 items-center about-wrapper">
+            <div class="space-y-4 about-text">
                 <span class="text-amber-400 text-xs font-semibold tracking-wider uppercase">Local Expertise You Can Trust</span>
                 <h2 class="text-3xl font-bold text-white">Meet Muzzafar at Mobile Care</h2>
                 <p class="text-gray-300 leading-relaxed">
@@ -303,7 +322,7 @@
                 </div>
             </div>
 
-            <div class="bg-gray-900 rounded-xl p-6 border border-gray-800 space-y-4">
+            <div class="bg-gray-900 rounded-xl p-6 border border-gray-800 space-y-4 about-hours">
                 <h3 class="text-lg font-bold text-white border-b border-gray-800 pb-3 flex items-center gap-2">
                     <i data-lucide="clock" class="w-5 h-5 text-cyan-400"></i> Working Hours & Contact
                 </h3>
@@ -318,7 +337,7 @@
                     </div>
                     <div class="flex justify-between py-1">
                         <span>Direct Call / WhatsApp:</span>
-                        <a href="tel:+918623904143" class="font-semibold text-cyan-400 hover:underline">+91 8623904143</a>
+                        <a href="tel:+918623904143" class="font-semibold text-cyan-400 hover:underline phone-pulse-target">+91 8623904143</a>
                     </div>
                 </div>
             </div>
@@ -327,12 +346,12 @@
 
     <!-- Location & Google Maps Integration -->
     <section id="location" class="py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center max-w-2xl mx-auto mb-10">
+        <div class="text-center max-w-2xl mx-auto mb-10 location-header">
             <h2 class="text-3xl font-bold text-white">Visit Our Shop in Gadhinglaj</h2>
             <p class="text-gray-400 mt-2">MR Highschool Road, Kadgaon, Gadhinglaj, Maharashtra 416502</p>
         </div>
 
-        <div class="glass-card rounded-2xl p-4 sm:p-6 space-y-4">
+        <div class="glass-card rounded-2xl p-4 sm:p-6 space-y-4 location-card">
             <div class="flex flex-col sm:flex-row items-center justify-between gap-4 bg-gray-900 p-4 rounded-xl border border-gray-800">
                 <div class="flex items-center gap-3">
                     <i data-lucide="navigation" class="w-6 h-6 text-amber-400 shrink-0"></i>
@@ -387,11 +406,137 @@
         </a>
     </div>
 
-    <!-- JavaScript Scripts -->
+    <!-- JavaScript Scripts & Animations -->
     <script>
-        // Initialize Lucide Icons
+        // Initialize Lucide Icons & Footer Year
         lucide.createIcons();
         document.getElementById('current-year').textContent = new Date().getFullYear();
+
+        // Lenis Smooth Scroll Setup
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            direction: 'vertical',
+            smooth: true
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // GSAP & ScrollTrigger Setup
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Scroll Progress Bar Update
+        window.addEventListener('scroll', () => {
+            const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            const progressBar = document.getElementById('scroll-progress');
+            if (progressBar) progressBar.style.width = scrolled + '%';
+        });
+
+        // Respect prefers-reduced-motion check
+        const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+        if (!mediaQuery.matches) {
+            
+            // Hero Section Entrance Animations
+            const heroTl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+            heroTl.from('.hero-text-col > div:first-child', { opacity: 0, y: -20, duration: 0.6 })
+                  .from('.hero-headline', { opacity: 0, y: 40, duration: 0.8 }, '-=0.3')
+                  .from('.hero-sub', { opacity: 0, y: 30, duration: 0.8 }, '-=0.5')
+                  .from('.hero-btns', { opacity: 0, y: 20, duration: 0.6 }, '-=0.4')
+                  .from('.hero-badges > div', { opacity: 0, y: 20, stagger: 0.1, duration: 0.6 }, '-=0.4')
+                  .from('#hero-3d-wrapper', { opacity: 0, scale: 0.95, duration: 1 }, '-=0.8');
+
+            // Continuous Floating Animation for 3D Hero Container
+            gsap.to('#hero-3d-wrapper', {
+                y: 12,
+                duration: 2.5,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+
+            // Services Grid Scroll Reveal
+            gsap.from('#services .glass-card', {
+                scrollTrigger: {
+                    trigger: '#services',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 60,
+                stagger: 0.15,
+                duration: 0.8,
+                ease: 'power3.out'
+            });
+
+            // Inquiry Quote Form Scroll Reveal
+            gsap.from('.quote-form-card', {
+                scrollTrigger: {
+                    trigger: '#quote',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                scale: 0.95,
+                y: 40,
+                duration: 0.9,
+                ease: 'power3.out'
+            });
+
+            // About Section Asymmetric Entrance
+            gsap.from('.about-text', {
+                scrollTrigger: {
+                    trigger: '#about',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: -50,
+                duration: 0.9,
+                ease: 'power3.out'
+            });
+
+            gsap.from('.about-hours', {
+                scrollTrigger: {
+                    trigger: '#about',
+                    start: 'top 80%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                x: 50,
+                duration: 0.9,
+                ease: 'power3.out',
+                delay: 0.2
+            });
+
+            // Location Section Reveal
+            gsap.from('.location-card', {
+                scrollTrigger: {
+                    trigger: '#location',
+                    start: 'top 85%',
+                    toggleActions: 'play none none none'
+                },
+                opacity: 0,
+                y: 50,
+                duration: 0.9,
+                ease: 'power3.out'
+            });
+
+            // Subtle pulsing attention animation for the contact phone number
+            gsap.to('.phone-pulse-target', {
+                scale: 1.05,
+                color: '#38bdf8',
+                duration: 1.2,
+                repeat: -1,
+                yoyo: true,
+                ease: 'sine.inOut'
+            });
+        }
 
         // Dynamic WhatsApp Inquiry Link Handler
         const deviceType = document.getElementById('device-type');
@@ -419,7 +564,7 @@
         deviceIssue.addEventListener('change', updateInquiry);
         updateInquiry();
 
-        // Three.js 3D Interactive Tech Phone Canvas Effect
+        // Three.js 3D Interactive Tech Phone Canvas Effect with Fallback
         (function initThreeJS() {
             const container = document.getElementById('webgl-container');
             const fallback = document.getElementById('fallback-graphic');
